@@ -24,7 +24,7 @@ export function PrototypeScreenTemplate({
 }: PrototypeScreenTemplateProps) {
   return (
     <main className="min-h-screen bg-[linear-gradient(180deg,_#f8fafc_0%,_#eef2ff_100%)] p-6 text-slate-950">
-      <div className="mx-auto flex min-h-[calc(100vh-3rem)] max-w-6xl flex-col gap-6 rounded-[32px] border border-slate-200 bg-white/90 p-6 shadow-[0_30px_90px_-40px_rgba(15,23,42,0.45)] backdrop-blur">
+      <div className="mx-auto flex min-h-[calc(100vh-3rem)] max-w-6xl flex-col gap-6 rounded-[32px] border border-slate-200 bg-white/90 p-6 shadow-[0_30px_90px_-40px_rgba(15,23,42,0.45)] backdrop-blur-sm">
         <header className="flex flex-col gap-4 border-b border-slate-200 pb-6 lg:flex-row lg:items-end lg:justify-between">
           <div className="space-y-2">
             <div className="inline-flex items-center gap-2 rounded-full border border-slate-200 bg-slate-50 px-3 py-1 text-sm text-slate-600">

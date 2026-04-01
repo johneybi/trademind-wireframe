@@ -7,7 +7,7 @@ import { MentalCalendarScreen } from "@/pages/screens/mental-calendar-screen";
 import { PostReviewResultScreen } from "@/pages/screens/post-review-result-screen";
 import { PreDecisionResultScreen } from "@/pages/screens/pre-decision-result-screen";
 
-export type ScreenStatus = "draft" | "wip" | "ready";
+export type ScreenStatus = "todo" | "wip" | "ready";
 
 export type ScreenDefinition = {
   id: string;
@@ -22,7 +22,7 @@ export const screenRegistry: ScreenDefinition[] = [
     id: "main",
     title: "메인",
     description: "시장 감정 요약과 핵심 진입 버튼을 배치하는 시작 화면",
-    status: "wip",
+    status: "todo",
     component: MainScreen,
   },
   {
@@ -36,35 +36,35 @@ export const screenRegistry: ScreenDefinition[] = [
     id: "chat",
     title: "AI 채팅",
     description: "CBT 기반 질문 흐름을 진행하는 대화 화면",
-    status: "draft",
+    status: "todo",
     component: ChatScreen,
   },
   {
     id: "pre-decision-result",
     title: "결과 - 사전 모드",
     description: "개입 결과와 커뮤니티 데이터를 보여주는 화면",
-    status: "draft",
+    status: "todo",
     component: PreDecisionResultScreen,
   },
   {
     id: "post-review-result",
     title: "결과 - 사후 복기",
     description: "복기 결과와 기록 완료 상태를 보여주는 화면",
-    status: "draft",
+    status: "todo",
     component: PostReviewResultScreen,
   },
   {
     id: "mental-calendar",
     title: "멘탈 캘린더",
     description: "개인 기록과 패턴을 보는 화면",
-    status: "draft",
+    status: "todo",
     component: MentalCalendarScreen,
   },
   {
     id: "emotion-board",
     title: "감정 공유 보드",
     description: "오늘의 분포와 익명 사연을 보여주는 TOGETHER 화면",
-    status: "draft",
+    status: "todo",
     component: EmotionBoardScreen,
   },
 ];

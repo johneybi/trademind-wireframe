@@ -6,13 +6,13 @@ import { cn } from "@/lib/utils";
 import { screenRegistry, type ScreenStatus } from "@/pages/screen-registry";
 
 const statusLabel: Record<ScreenStatus, string> = {
-  draft: "초안",
+  todo: "미착수",
   wip: "작업 중",
-  ready: "준비 완료",
+  ready: "완료",
 };
 
 const statusClassName: Record<ScreenStatus, string> = {
-  draft: "border-slate-200 bg-slate-100 text-slate-700",
+  todo: "border-slate-200 bg-slate-100 text-slate-700",
   wip: "border-amber-200 bg-amber-50 text-amber-700",
   ready: "border-emerald-200 bg-emerald-50 text-emerald-700",
 };
@@ -24,7 +24,7 @@ export function HomePage() {
   if (!activeScreen) {
     return (
       <main className="flex min-h-screen items-center justify-center bg-background p-6 text-foreground">
-        <div className="rounded-3xl border bg-card p-8 text-center shadow-sm">
+        <div className="rounded-3xl border bg-card p-8 text-center shadow-xs">
           <p className="text-lg font-semibold">등록된 화면이 없습니다.</p>
           <p className="mt-2 text-sm text-muted-foreground">
             <code>src/pages/screen-registry.tsx</code>에 화면을 등록하세요.
@@ -43,7 +43,7 @@ export function HomePage() {
           initial={{ opacity: 0, y: 18 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.45, ease: "easeOut" }}
-          className="rounded-[28px] border border-slate-200 bg-white/85 p-6 shadow-[0_30px_80px_-42px_rgba(15,23,42,0.45)] backdrop-blur"
+          className="rounded-[28px] border border-slate-200 bg-white/85 p-6 shadow-[0_30px_80px_-42px_rgba(15,23,42,0.45)] backdrop-blur-sm"
         >
           <div className="flex flex-col gap-6 xl:flex-row xl:items-end xl:justify-between">
             <div className="space-y-3">
@@ -83,7 +83,7 @@ export function HomePage() {
             initial={{ opacity: 0, x: -18 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.45, ease: "easeOut", delay: 0.05 }}
-            className="space-y-6 rounded-[28px] border border-slate-200 bg-white/85 p-5 shadow-[0_30px_80px_-42px_rgba(15,23,42,0.45)] backdrop-blur"
+            className="space-y-6 rounded-[28px] border border-slate-200 bg-white/85 p-5 shadow-[0_30px_80px_-42px_rgba(15,23,42,0.45)] backdrop-blur-sm"
           >
             <div className="space-y-3">
               <div className="flex items-center justify-between">
@@ -121,7 +121,7 @@ export function HomePage() {
 
                       <div
                         className={cn(
-                          "rounded-full border px-2 py-1 text-xs",
+                          "inline-flex shrink-0 items-center whitespace-nowrap rounded-full border px-2.5 py-1 text-xs leading-none",
                           selectedId === screen.id
                             ? "border-white/20 bg-white/10 text-white"
                             : statusClassName[screen.status],
@@ -137,7 +137,7 @@ export function HomePage() {
 
             <div className="space-y-3 rounded-3xl border border-slate-200 bg-slate-50 p-4">
               <div className="flex items-center gap-3">
-                <div className="rounded-2xl bg-white p-3 shadow-sm">
+                  <div className="rounded-2xl bg-white p-3 shadow-xs">
                   <Plus className="h-5 w-5 text-slate-700" />
                 </div>
                 <div>
@@ -154,7 +154,7 @@ export function HomePage() {
 
             <div className="space-y-3 rounded-3xl border border-blue-200 bg-blue-50 p-4 text-blue-900">
               <div className="flex items-center gap-3">
-                <div className="rounded-2xl bg-white p-3 shadow-sm">
+                  <div className="rounded-2xl bg-white p-3 shadow-xs">
                   <PieChart className="h-5 w-5 text-blue-700" />
                 </div>
                 <div>
@@ -172,7 +172,7 @@ export function HomePage() {
             initial={{ opacity: 0, x: 18 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.45, ease: "easeOut", delay: 0.1 }}
-            className="min-h-0 rounded-[28px] border border-slate-200 bg-white/85 p-4 shadow-[0_30px_80px_-42px_rgba(15,23,42,0.45)] backdrop-blur lg:p-5"
+            className="min-h-0 rounded-[28px] border border-slate-200 bg-white/85 p-4 shadow-[0_30px_80px_-42px_rgba(15,23,42,0.45)] backdrop-blur-sm lg:p-5"
           >
             <div className="flex flex-col gap-4 border-b border-slate-200 pb-4 lg:flex-row lg:items-center lg:justify-between">
               <div>
@@ -185,11 +185,16 @@ export function HomePage() {
               </div>
 
               <div className="flex flex-wrap gap-3">
-                <div className="inline-flex items-center gap-2 rounded-full border border-slate-200 bg-slate-50 px-3 py-1.5 text-sm text-slate-600">
+                <div className="inline-flex shrink-0 items-center gap-2 whitespace-nowrap rounded-full border border-slate-200 bg-slate-50 px-3 py-1.5 text-sm text-slate-600">
                   <LayoutTemplate className="h-4 w-4" />
                   전체 화면
                 </div>
-                <div className="inline-flex items-center gap-2 rounded-full border border-emerald-200 bg-emerald-50 px-3 py-1.5 text-sm text-emerald-700">
+                <div
+                  className={cn(
+                    "inline-flex shrink-0 items-center gap-2 whitespace-nowrap rounded-full border px-3 py-1.5 text-sm leading-none",
+                    statusClassName[activeScreen.status],
+                  )}
+                >
                   <CheckCircle2 className="h-4 w-4" />
                   {statusLabel[activeScreen.status]}
                 </div>

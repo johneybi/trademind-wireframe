@@ -1,0 +1,8 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(npm.cmd run:*)",
+      "Bash(npx shadcn@latest add command popover)"
+    ]
+  }
+}

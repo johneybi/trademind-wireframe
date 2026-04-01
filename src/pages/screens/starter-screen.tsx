@@ -28,7 +28,7 @@ export function StarterScreen() {
             transition={{ duration: 0.6, ease: "easeOut" }}
             className="space-y-8"
           >
-            <div className="inline-flex items-center gap-2 rounded-full border border-border/60 bg-card/70 px-3 py-1 text-sm text-muted-foreground backdrop-blur">
+              <div className="inline-flex items-center gap-2 rounded-full border border-border/60 bg-card/70 px-3 py-1 text-sm text-muted-foreground backdrop-blur-sm">
               <Sparkles className="h-4 w-4 text-primary" />
               React + Vite + Tailwind CSS v3 + shadcn/ui + Motion
             </div>
@@ -61,7 +61,7 @@ export function StarterScreen() {
                   initial={{ opacity: 0, y: 16 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 0.12 * index, duration: 0.45 }}
-                  className="rounded-2xl border bg-card p-5 shadow-sm"
+                  className="rounded-2xl border bg-card p-5 shadow-xs"
                 >
                   <p className="text-sm text-muted-foreground">{card.label}</p>
                   <p className="mt-3 text-3xl font-semibold">{card.value}</p>

@@ -9,7 +9,7 @@ const quickNotes = [
 export function BlankCanvasScreen() {
   return (
     <main className="min-h-screen bg-[linear-gradient(180deg,_#f8fafc_0%,_#eef2ff_100%)] p-6 text-slate-950">
-      <div className="mx-auto flex min-h-[calc(100vh-3rem)] max-w-6xl flex-col gap-6 rounded-[32px] border border-slate-200 bg-white/90 p-6 shadow-[0_30px_90px_-40px_rgba(15,23,42,0.45)] backdrop-blur">
+      <div className="mx-auto flex min-h-[calc(100vh-3rem)] max-w-6xl flex-col gap-6 rounded-[32px] border border-slate-200 bg-white/90 p-6 shadow-[0_30px_90px_-40px_rgba(15,23,42,0.45)] backdrop-blur-sm">
         <div className="flex flex-col gap-4 border-b border-slate-200 pb-6 sm:flex-row sm:items-end sm:justify-between">
           <div className="space-y-2">
             <p className="text-sm font-medium uppercase tracking-[0.2em] text-slate-500">Blank canvas</p>
@@ -50,7 +50,7 @@ export function BlankCanvasScreen() {
           <section className="grid gap-6 md:grid-cols-2">
             <div className="rounded-3xl border border-dashed border-slate-300 bg-slate-50/70 p-6">
               <div className="flex items-center gap-3">
-                <div className="rounded-2xl bg-white p-3 shadow-sm">
+                  <div className="rounded-2xl bg-white p-3 shadow-xs">
                   <PencilRuler className="h-5 w-5 text-slate-700" />
                 </div>
                 <div>
@@ -63,7 +63,7 @@ export function BlankCanvasScreen() {
 
             <div className="rounded-3xl border border-dashed border-slate-300 bg-slate-50/70 p-6">
               <div className="flex items-center gap-3">
-                <div className="rounded-2xl bg-white p-3 shadow-sm">
+                  <div className="rounded-2xl bg-white p-3 shadow-xs">
                   <PieChart className="h-5 w-5 text-slate-700" />
                 </div>
                 <div>
