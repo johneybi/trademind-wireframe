@@ -214,12 +214,21 @@ export function InputScreen() {
                   </p>
                 </div>
 
-                {/* 중간: 검색 결과 or 선택된 종목 or 힌트 카드 */}
-                <div className="min-h-0 flex-1 overflow-auto px-5 pt-6">
+                {/* 중간: 힌트 카드 (검색/선택 전에만 상단 영역에 표시) */}
+                <div className="min-h-0 flex-1 px-5 pt-6">
+                  {!stockQuery && !selectedStock ? (
+                    <div className="rounded-2xl border border-stone-200 bg-stone-50 px-4 py-3 font-serif text-sm leading-6 text-stone-600">
+                      특정 종목이 없어도 괜찮아요. 지금 느끼는 조급함이나 불안 자체가 더 중요한 이야기예요.
+                    </div>
+                  ) : null}
+                </div>
+
+                {/* 하단: 결과/선택 카드 + 인풋 */}
+                <div className="shrink-0 px-5 pb-4">
                   {stockQuery.length > 0 ? (
-                    filteredStocks.length > 0 ? (
-                      <div className="overflow-hidden rounded-2xl border border-stone-200 bg-white">
-                        {filteredStocks.map((s, i) => (
+                    <div className="mb-2 max-h-52 overflow-auto rounded-2xl border border-stone-200 bg-white shadow-sm">
+                      {filteredStocks.length > 0 ? (
+                        filteredStocks.map((s, i) => (
                           <button
                             key={s.code}
                             type="button"
@@ -230,17 +239,9 @@ export function InputScreen() {
                             className={cn(
                               "flex w-full items-center justify-between px-4 py-3.5 text-left transition-colors active:bg-stone-50",
                               i > 0 && "border-t border-stone-100",
-                              selectedStock?.code === s.code && "bg-stone-50",
                             )}
                           >
-                            <div className="flex items-center gap-3">
-                              <div className="flex h-4 w-4 shrink-0 items-center justify-center">
-                                {selectedStock?.code === s.code ? (
-                                  <Check className="h-4 w-4 text-stone-900" />
-                                ) : null}
-                              </div>
-                              <span className="text-sm font-medium text-stone-900">{s.name}</span>
-                            </div>
+                            <span className="text-sm font-medium text-stone-900">{s.name}</span>
                             <div className="flex items-center gap-2">
                               <span className="text-xs text-stone-400">{s.code}</span>
                               <span className="rounded-md bg-stone-100 px-1.5 py-0.5 text-[10px] text-stone-500">
@@ -248,19 +249,17 @@ export function InputScreen() {
                               </span>
                             </div>
                           </button>
-                        ))}
-                      </div>
-                    ) : (
-                      <p className="py-10 text-center font-serif text-sm text-stone-400">결과 없음</p>
-                    )
+                        ))
+                      ) : (
+                        <p className="py-4 text-center font-serif text-sm text-stone-400">결과 없음</p>
+                      )}
+                    </div>
                   ) : selectedStock ? (
-                    <div className="flex items-center justify-between rounded-2xl border border-stone-900 bg-white px-4 py-3.5">
+                    <div className="mb-2 flex items-center justify-between rounded-2xl border border-stone-900 bg-white px-4 py-3.5">
                       <div className="flex items-center gap-3">
                         <Check className="h-4 w-4 shrink-0 text-stone-900" />
-                        <div>
-                          <span className="text-sm font-medium text-stone-900">{selectedStock.name}</span>
-                          <span className="ml-2 text-xs text-stone-400">{selectedStock.code}</span>
-                        </div>
+                        <span className="text-sm font-medium text-stone-900">{selectedStock.name}</span>
+                        <span className="text-xs text-stone-400">{selectedStock.code}</span>
                       </div>
                       <button
                         type="button"
@@ -270,15 +269,9 @@ export function InputScreen() {
                         지우기
                       </button>
                     </div>
-                  ) : (
-                    <div className="rounded-2xl border border-stone-200 bg-stone-50 px-4 py-3 font-serif text-sm leading-6 text-stone-600">
-                      특정 종목이 없어도 괜찮아요. 지금 느끼는 조급함이나 불안 자체가 더 중요한 이야기예요.
-                    </div>
-                  )}
-                </div>
+                  ) : null}
 
-                {/* 하단: 검색 인풋 */}
-                <div className="shrink-0 px-5 pb-4 pt-3">
+                  {/* 검색 인풋 */}
                   <div className="relative">
                     <Search className="pointer-events-none absolute left-4 top-1/2 h-4 w-4 -translate-y-1/2 text-stone-400" />
                     <input
