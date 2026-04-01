@@ -12,6 +12,8 @@ import {
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 
+import { BottomTabBar } from "@/components/bottom-tab-bar";
+
 type Step = 0 | 1 | 2 | 3 | 4;
 type ModeOption = "pre" | "post";
 
@@ -92,25 +94,7 @@ function ProgressBar({ step }: { step: Step }) {
   );
 }
 
-function AppTabBar() {
-  return (
-    <div className="flex items-center justify-between px-6">
-      {[
-        { label: "메인", active: false },
-        { label: "입력", active: true },
-        { label: "캘린더", active: false },
-        { label: "보드", active: false },
-      ].map((item) => (
-        <div key={item.label} className="flex w-14 flex-col items-center gap-2">
-          <div className={cn("h-8 w-8 rounded-xs", item.active ? "bg-stone-800" : "bg-stone-200")} />
-          <span className={cn("text-[11px]", item.active ? "text-stone-700" : "text-stone-400")}>
-            {item.label}
-          </span>
-        </div>
-      ))}
-    </div>
-  );
-}
+
 
 function FlowStepLayout({
   step,
@@ -267,8 +251,8 @@ export function InputScreen() {
               ))}
             </div>
 
-            <div className="mt-auto border-t border-stone-100 pt-4">
-              <AppTabBar />
+            <div className="mt-auto">
+              <BottomTabBar activeTab="chat" />
             </div>
           </motion.section>
         </>
@@ -402,42 +386,49 @@ export function InputScreen() {
                   title="지금 어떤 감정에 가까운가요?"
                   description="가장 가까운 감정 하나를 골라 주세요."
                 >
-                  <div className="space-y-5">
-                    <div className="flex flex-wrap gap-2">
-                      {emotionOptions.map((option) => {
-                        const selected = emotion === option;
-
-                        return (
-                          <Button
-                            key={option}
-                            type="button"
-                            variant="outline"
-                            size="sm"
+                  <div className="space-y-2">
+                    {emotionOptions.map((option) => {
+                      const selected = emotion === option;
+                      return (
+                        <button
+                          key={option}
+                          type="button"
+                          onClick={() => setEmotion(option)}
+                          className={cn(
+                            "flex w-full items-center gap-4 rounded-2xl border px-5 py-4 text-left transition-colors",
+                            selected
+                              ? "border-stone-900 bg-stone-900 text-white"
+                              : "border-stone-200 bg-white text-stone-800 hover:bg-stone-50",
+                          )}
+                        >
+                          <span
                             className={cn(
-                              "h-11 rounded-xl border px-4 text-sm",
+                              "flex h-5 w-5 shrink-0 items-center justify-center rounded-full border-2",
                               selected
-                                ? "border-2 border-stone-900 bg-white text-stone-900 hover:bg-white"
-                                : "border-stone-300 bg-white text-stone-700 hover:bg-stone-50",
+                                ? "border-white bg-white"
+                                : "border-stone-300 bg-transparent",
                             )}
-                            onClick={() => setEmotion(option)}
                           >
-                            {option}
-                          </Button>
-                        );
-                      })}
-                    </div>
+                            {selected && (
+                              <span className="h-2.5 w-2.5 rounded-full bg-stone-900" />
+                            )}
+                          </span>
+                          <span className="text-[15px] font-medium">{option}</span>
+                        </button>
+                      );
+                    })}
+                  </div>
 
-                    <div className="rounded-2xl border border-stone-200 bg-stone-50 px-4 py-4">
-                      <div className="flex items-start gap-3">
-                        <div className="rounded-xl bg-white p-2 text-stone-700 shadow-xs">
-                          <ShieldCheck className="h-4 w-4" />
-                        </div>
-                        <div>
-                          <p className="text-sm font-semibold text-stone-900">감정을 비난하지 않아요</p>
-                          <p className="mt-1 font-serif text-sm leading-6 text-stone-600">
-                            AI는 먼저 공감하고, 그 다음에 지금 판단을 흔드는 지점을 질문으로 확인합니다.
-                          </p>
-                        </div>
+                  <div className="mt-4 rounded-2xl border border-stone-200 bg-stone-50 px-4 py-4">
+                    <div className="flex items-start gap-3">
+                      <div className="rounded-xl bg-white p-2 text-stone-700 shadow-xs">
+                        <ShieldCheck className="h-4 w-4" />
+                      </div>
+                      <div>
+                        <p className="text-sm font-semibold text-stone-900">감정을 비난하지 않아요</p>
+                        <p className="mt-1 font-serif text-sm leading-6 text-stone-600">
+                          AI는 먼저 공감하고, 그 다음에 지금 판단을 흔드는 지점을 질문으로 확인합니다.
+                        </p>
                       </div>
                     </div>
                   </div>
