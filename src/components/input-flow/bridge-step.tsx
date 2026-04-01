@@ -1,4 +1,5 @@
 import { motion } from "motion/react";
+import { modeOptions } from "./constants";
 import type { ModeOption, StockSelection } from "./types";
 
 function SummaryRow({ label, value }: { label: string; value: string }) {
@@ -39,10 +40,12 @@ export function InputBridgeStep({
 
       <div className="mt-6 rounded-2xl border border-stone-200 bg-stone-50 px-4 py-4">
         <div className="space-y-3">
-          <SummaryRow
-            label="상황"
-            value={mode === "post" ? "이미 한 매매가 마음에 걸려요" : "사고 싶거나 팔고 싶어요"}
-          />
+          {mode ? (
+            <SummaryRow
+              label="상황"
+              value={modeOptions.find((o) => o.value === mode)?.label ?? ""}
+            />
+          ) : null}
           {stock ? <SummaryRow label="종목" value={stock.name} /> : null}
           {emotion ? <SummaryRow label="감정" value={emotion} /> : null}
         </div>
