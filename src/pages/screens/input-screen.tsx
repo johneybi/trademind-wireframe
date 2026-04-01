@@ -1,9 +1,7 @@
 import { useState, type ReactNode } from "react";
 import { AnimatePresence, motion } from "motion/react";
-import { ArrowLeft, BrainCircuit, Check, ShieldCheck, Users } from "lucide-react";
+import { ArrowLeft, BrainCircuit, Check, Search, ShieldCheck, Users } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { Command, CommandEmpty, CommandInput, CommandItem, CommandList } from "@/components/ui/command";
-import { Popover, PopoverAnchor, PopoverContent } from "@/components/ui/popover";
 import { cn } from "@/lib/utils";
 
 type ModeOption = "pre" | "post";
@@ -104,7 +102,6 @@ export function InputScreen() {
   const [step, setStep] = useState(0);
   const [mode, setMode] = useState<ModeOption | null>(null);
   const [stockQuery, setStockQuery] = useState("");
-  const [stockOpen, setStockOpen] = useState(false);
   const [selectedStock, setSelectedStock] = useState<{ name: string; code: string; market: string } | null>(null);
   const [emotion, setEmotion] = useState<string | null>(null);
   const [detail, setDetail] = useState("");
@@ -201,87 +198,101 @@ export function InputScreen() {
 
             {/* step 1 — 종목 */}
             {step === 1 ? (
-              <ScreenFrame
-                title="어떤 종목인가요?"
-                description="몰라도 괜찮아요. 감정만으로도 대화를 시작할 수 있어요."
+              <motion.section
+                key="stock"
+                initial={{ opacity: 0, x: 18 }}
+                animate={{ opacity: 1, x: 0 }}
+                exit={{ opacity: 0, x: -18 }}
+                transition={{ duration: 0.2, ease: "easeOut" }}
+                className="flex min-h-0 flex-1 flex-col"
               >
-                <div className="space-y-4">
-                  <Popover open={stockOpen && stockQuery.length > 0} onOpenChange={setStockOpen}>
-                    <Command shouldFilter={false}>
-                      <PopoverAnchor asChild>
-                        <CommandInput
-                          value={stockQuery}
-                          onValueChange={(v) => {
-                            setStockQuery(v);
-                            if (selectedStock && v !== selectedStock.name) setSelectedStock(null);
-                            setStockOpen(true);
-                          }}
-                          placeholder="종목명 또는 코드 입력"
-                          className="h-12 rounded-2xl border border-stone-200 bg-stone-50 text-sm text-stone-900 transition focus-within:border-stone-400 focus-within:bg-white"
-                        />
-                      </PopoverAnchor>
-                      <PopoverContent
-                        className="w-[var(--radix-popover-trigger-width)] p-0"
-                        onOpenAutoFocus={(e) => e.preventDefault()}
-                      >
-                        <CommandList>
-                          <CommandEmpty className="py-4 text-center font-serif text-sm text-stone-500">
-                            결과 없음
-                          </CommandEmpty>
-                          {filteredStocks.map((s) => (
-                            <CommandItem
-                              key={s.code}
-                              value={s.code}
-                              onSelect={() => {
-                                setSelectedStock(s);
-                                setStockQuery(s.name);
-                                setStockOpen(false);
-                              }}
-                              className="flex items-center justify-between px-4 py-3"
-                            >
-                              <div className="flex items-center gap-3">
+                {/* 상단: 타이틀 */}
+                <div className="shrink-0 px-5 pt-8 text-center">
+                  <h1 className="text-[28px] font-semibold tracking-tight text-stone-950">어떤 종목인가요?</h1>
+                  <p className="mt-3 font-serif text-sm leading-6 text-stone-500">
+                    몰라도 괜찮아요. 감정만으로도 대화를 시작할 수 있어요.
+                  </p>
+                </div>
+
+                {/* 중간: 검색 결과 or 선택된 종목 or 힌트 카드 */}
+                <div className="min-h-0 flex-1 overflow-auto px-5 pt-6">
+                  {stockQuery.length > 0 ? (
+                    filteredStocks.length > 0 ? (
+                      <div className="overflow-hidden rounded-2xl border border-stone-200 bg-white">
+                        {filteredStocks.map((s, i) => (
+                          <button
+                            key={s.code}
+                            type="button"
+                            onClick={() => {
+                              setSelectedStock(s);
+                              setStockQuery("");
+                            }}
+                            className={cn(
+                              "flex w-full items-center justify-between px-4 py-3.5 text-left transition-colors active:bg-stone-50",
+                              i > 0 && "border-t border-stone-100",
+                              selectedStock?.code === s.code && "bg-stone-50",
+                            )}
+                          >
+                            <div className="flex items-center gap-3">
+                              <div className="flex h-4 w-4 shrink-0 items-center justify-center">
                                 {selectedStock?.code === s.code ? (
                                   <Check className="h-4 w-4 text-stone-900" />
-                                ) : (
-                                  <div className="h-4 w-4" />
-                                )}
-                                <span className="text-sm font-medium text-stone-900">{s.name}</span>
+                                ) : null}
                               </div>
-                              <div className="flex items-center gap-2">
-                                <span className="text-xs text-stone-400">{s.code}</span>
-                                <span className="rounded-md bg-stone-100 px-1.5 py-0.5 text-[10px] text-stone-500">
-                                  {s.market}
-                                </span>
-                              </div>
-                            </CommandItem>
-                          ))}
-                        </CommandList>
-                      </PopoverContent>
-                    </Command>
-                  </Popover>
-
-                  {selectedStock ? (
-                    <div className="flex items-center justify-between rounded-2xl border border-stone-900 bg-stone-50 px-4 py-3">
-                      <div className="flex items-center gap-2">
-                        <Check className="h-4 w-4 text-stone-900" />
-                        <span className="text-sm font-medium text-stone-900">{selectedStock.name}</span>
-                        <span className="text-xs text-stone-400">{selectedStock.code}</span>
+                              <span className="text-sm font-medium text-stone-900">{s.name}</span>
+                            </div>
+                            <div className="flex items-center gap-2">
+                              <span className="text-xs text-stone-400">{s.code}</span>
+                              <span className="rounded-md bg-stone-100 px-1.5 py-0.5 text-[10px] text-stone-500">
+                                {s.market}
+                              </span>
+                            </div>
+                          </button>
+                        ))}
+                      </div>
+                    ) : (
+                      <p className="py-10 text-center font-serif text-sm text-stone-400">결과 없음</p>
+                    )
+                  ) : selectedStock ? (
+                    <div className="flex items-center justify-between rounded-2xl border border-stone-900 bg-white px-4 py-3.5">
+                      <div className="flex items-center gap-3">
+                        <Check className="h-4 w-4 shrink-0 text-stone-900" />
+                        <div>
+                          <span className="text-sm font-medium text-stone-900">{selectedStock.name}</span>
+                          <span className="ml-2 text-xs text-stone-400">{selectedStock.code}</span>
+                        </div>
                       </div>
                       <button
                         type="button"
-                        onClick={() => { setSelectedStock(null); setStockQuery(""); }}
-                        className="text-xs text-stone-400 hover:text-stone-600"
+                        onClick={() => setSelectedStock(null)}
+                        className="text-xs text-stone-400 hover:text-stone-700"
                       >
                         지우기
                       </button>
                     </div>
-                  ) : null}
+                  ) : (
+                    <div className="rounded-2xl border border-stone-200 bg-stone-50 px-4 py-3 font-serif text-sm leading-6 text-stone-600">
+                      특정 종목이 없어도 괜찮아요. 지금 느끼는 조급함이나 불안 자체가 더 중요한 이야기예요.
+                    </div>
+                  )}
+                </div>
 
-                  <div className="rounded-2xl border border-stone-200 bg-stone-50 px-4 py-3 font-serif text-sm leading-6 text-stone-600">
-                    특정 종목이 없어도 괜찮아요. 지금 느끼는 조급함이나 불안 자체가 더 중요한 이야기예요.
+                {/* 하단: 검색 인풋 */}
+                <div className="shrink-0 px-5 pb-4 pt-3">
+                  <div className="relative">
+                    <Search className="pointer-events-none absolute left-4 top-1/2 h-4 w-4 -translate-y-1/2 text-stone-400" />
+                    <input
+                      className="h-12 w-full rounded-2xl border border-stone-200 bg-stone-50 pl-11 pr-4 text-sm text-stone-900 outline-none transition focus:border-stone-500 focus:bg-white"
+                      placeholder="종목명 또는 코드 입력"
+                      value={stockQuery}
+                      onChange={(e) => {
+                        setStockQuery(e.target.value);
+                        if (selectedStock) setSelectedStock(null);
+                      }}
+                    />
                   </div>
                 </div>
-              </ScreenFrame>
+              </motion.section>
             ) : null}
 
             {/* step 2 — 감정 */}

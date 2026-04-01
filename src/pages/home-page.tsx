@@ -209,7 +209,7 @@ export function HomePage() {
                   animate={{ opacity: 1, y: 0 }}
                   exit={{ opacity: 0, y: -10 }}
                   transition={{ duration: 0.22, ease: "easeOut" }}
-                  className="max-h-[calc(100vh-280px)] overflow-auto"
+                  className="h-[844px] overflow-auto"
                 >
                   <ActiveScreen />
                 </motion.div>
