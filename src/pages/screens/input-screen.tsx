@@ -123,8 +123,8 @@ export function InputScreen() {
   const primaryLabel = step === 1 ? (selectedStock ? "다음" : "종목 없이 진행") : "다음";
 
   return (
-    <main className="min-h-screen bg-stone-100 text-stone-950">
-      <div className="mx-auto flex min-h-screen w-full max-w-[390px] flex-col bg-white shadow-[0_0_0_1px_rgba(231,229,228,0.9),0_30px_80px_-40px_rgba(28,25,23,0.4)]">
+    <main className="h-full bg-stone-100 text-stone-950">
+      <div className="mx-auto flex h-full w-full max-w-[390px] flex-col bg-white shadow-[0_0_0_1px_rgba(231,229,228,0.9),0_30px_80px_-40px_rgba(28,25,23,0.4)]">
 
         {/* 헤더: step 0은 브랜드명만, step 1+는 뒤로가기 + 진행 바 */}
         <header className="border-b border-stone-100 px-5 pb-4 pt-5">
@@ -431,7 +431,7 @@ export function InputScreen() {
           </AnimatePresence>
         </div>
 
-        <footer className="sticky bottom-0 border-t border-stone-200 bg-white/95 px-5 pb-4 pt-4 backdrop-blur-sm">
+        <footer className="shrink-0 border-t border-stone-200 bg-white px-5 pb-4 pt-4">
           {step > 0 && step < 4 ? (
             <Button
               type="button"
