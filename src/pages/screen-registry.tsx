@@ -1,6 +1,11 @@
 ﻿import type { ComponentType } from "react";
-import { BlankCanvasScreen } from "@/pages/screens/blank-canvas-screen";
-import { StarterScreen } from "@/pages/screens/starter-screen";
+import { ChatScreen } from "@/pages/screens/chat-screen";
+import { EmotionBoardScreen } from "@/pages/screens/emotion-board-screen";
+import { InputScreen } from "@/pages/screens/input-screen";
+import { MainScreen } from "@/pages/screens/main-screen";
+import { MentalCalendarScreen } from "@/pages/screens/mental-calendar-screen";
+import { PostReviewResultScreen } from "@/pages/screens/post-review-result-screen";
+import { PreDecisionResultScreen } from "@/pages/screens/pre-decision-result-screen";
 
 export type ScreenStatus = "draft" | "wip" | "ready";
 
@@ -14,17 +19,52 @@ export type ScreenDefinition = {
 
 export const screenRegistry: ScreenDefinition[] = [
   {
-    id: "blank-canvas",
-    title: "빈 캔버스",
-    description: "lo-fi 레이아웃을 mid-fi 화면으로 바꾸기 위한 기본 베이스 화면입니다.",
-    status: "draft",
-    component: BlankCanvasScreen,
+    id: "main",
+    title: "메인",
+    description: "시장 감정 요약과 핵심 진입 버튼을 배치하는 시작 화면",
+    status: "wip",
+    component: MainScreen,
   },
   {
-    id: "starter-screen",
-    title: "스타터 화면",
-    description: "초기 스타터 페이지를 참고용으로 남겨둔 화면입니다.",
-    status: "ready",
-    component: StarterScreen,
+    id: "input",
+    title: "입력",
+    description: "모드 선택, 종목 입력, 감정 선택을 처리하는 화면",
+    status: "wip",
+    component: InputScreen,
+  },
+  {
+    id: "chat",
+    title: "AI 채팅",
+    description: "CBT 기반 질문 흐름을 진행하는 대화 화면",
+    status: "draft",
+    component: ChatScreen,
+  },
+  {
+    id: "pre-decision-result",
+    title: "결과 - 사전 모드",
+    description: "개입 결과와 커뮤니티 데이터를 보여주는 화면",
+    status: "draft",
+    component: PreDecisionResultScreen,
+  },
+  {
+    id: "post-review-result",
+    title: "결과 - 사후 복기",
+    description: "복기 결과와 기록 완료 상태를 보여주는 화면",
+    status: "draft",
+    component: PostReviewResultScreen,
+  },
+  {
+    id: "mental-calendar",
+    title: "멘탈 캘린더",
+    description: "개인 기록과 패턴을 보는 화면",
+    status: "draft",
+    component: MentalCalendarScreen,
+  },
+  {
+    id: "emotion-board",
+    title: "감정 공유 보드",
+    description: "오늘의 분포와 익명 사연을 보여주는 TOGETHER 화면",
+    status: "draft",
+    component: EmotionBoardScreen,
   },
 ];
