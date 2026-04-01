@@ -1,4 +1,5 @@
 export type InputStep = 0 | 1 | 2 | 3 | 4;
+export type InputPreviewStateId = "entry" | "stock" | "emotion" | "detail" | "bridge";
 
 export type ModeOption = "pre" | "post";
 

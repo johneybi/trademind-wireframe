@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { AnimatePresence } from "motion/react";
-import { STOCKS } from "@/components/input-flow/constants";
+import { STOCKS, emotionOptions } from "@/components/input-flow/constants";
 import { InputBridgeStep } from "@/components/input-flow/bridge-step";
 import { InputDetailStep } from "@/components/input-flow/detail-step";
 import { InputDeviceFrame } from "@/components/input-flow/device-frame";
@@ -9,15 +9,84 @@ import { InputEmotionStep } from "@/components/input-flow/emotion-step";
 import { InputFlowFooter } from "@/components/input-flow/flow-footer";
 import { InputFlowHeader } from "@/components/input-flow/flow-header";
 import { InputStockStep } from "@/components/input-flow/stock-step";
-import type { InputStep, ModeOption, StockSelection } from "@/components/input-flow/types";
+import type {
+  InputPreviewStateId,
+  InputStep,
+  ModeOption,
+  StockSelection,
+} from "@/components/input-flow/types";
 
-export function InputScreen() {
-  const [step, setStep] = useState<InputStep>(0);
-  const [mode, setMode] = useState<ModeOption | null>(null);
-  const [stockQuery, setStockQuery] = useState("");
-  const [selectedStock, setSelectedStock] = useState<StockSelection | null>(null);
-  const [emotion, setEmotion] = useState<string | null>(null);
-  const [detail, setDetail] = useState("");
+type InputFlowSnapshot = {
+  step: InputStep;
+  mode: ModeOption | null;
+  stockQuery: string;
+  selectedStock: StockSelection | null;
+  emotion: string | null;
+  detail: string;
+};
+
+const defaultEmotion = emotionOptions[0] ?? null;
+const defaultStock = STOCKS[0] ?? null;
+
+const inputPreviewSnapshots: Record<InputPreviewStateId, InputFlowSnapshot> = {
+  entry: {
+    step: 0,
+    mode: null,
+    stockQuery: "",
+    selectedStock: null,
+    emotion: null,
+    detail: "",
+  },
+  stock: {
+    step: 1,
+    mode: "pre",
+    stockQuery: "",
+    selectedStock: null,
+    emotion: null,
+    detail: "",
+  },
+  emotion: {
+    step: 2,
+    mode: "pre",
+    stockQuery: "",
+    selectedStock: defaultStock,
+    emotion: null,
+    detail: "",
+  },
+  detail: {
+    step: 3,
+    mode: "pre",
+    stockQuery: "",
+    selectedStock: defaultStock,
+    emotion: defaultEmotion,
+    detail: "",
+  },
+  bridge: {
+    step: 4,
+    mode: "pre",
+    stockQuery: "",
+    selectedStock: defaultStock,
+    emotion: defaultEmotion,
+    detail: "실적 발표를 앞두고 지금 들어가야 할지 조급한 마음이 커졌어요.",
+  },
+};
+
+function getInitialSnapshot(previewStateId?: InputPreviewStateId): InputFlowSnapshot {
+  if (!previewStateId) {
+    return inputPreviewSnapshots.entry;
+  }
+
+  return inputPreviewSnapshots[previewStateId] ?? inputPreviewSnapshots.entry;
+}
+
+export function InputScreen({ initialPreviewStateId }: { initialPreviewStateId?: InputPreviewStateId }) {
+  const initialSnapshot = getInitialSnapshot(initialPreviewStateId);
+  const [step, setStep] = useState<InputStep>(initialSnapshot.step);
+  const [mode, setMode] = useState<ModeOption | null>(initialSnapshot.mode);
+  const [stockQuery, setStockQuery] = useState(initialSnapshot.stockQuery);
+  const [selectedStock, setSelectedStock] = useState<StockSelection | null>(initialSnapshot.selectedStock);
+  const [emotion, setEmotion] = useState<string | null>(initialSnapshot.emotion);
+  const [detail, setDetail] = useState(initialSnapshot.detail);
 
   const filteredStocks = STOCKS.filter(
     (stock) =>

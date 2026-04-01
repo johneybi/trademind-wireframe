@@ -8,13 +8,20 @@ import { PostReviewResultScreen } from "@/pages/screens/post-review-result-scree
 import { PreDecisionResultScreen } from "@/pages/screens/pre-decision-result-screen";
 
 export type ScreenStatus = "todo" | "wip" | "ready";
+export type ScreenPreviewState = {
+  id: string;
+  label: string;
+  description?: string;
+};
 
 export type ScreenDefinition = {
   id: string;
   title: string;
   description: string;
   status: ScreenStatus;
-  component: ComponentType;
+  component: ComponentType<any>;
+  previewStates?: ScreenPreviewState[];
+  getComponentProps?: (previewStateId?: string) => Record<string, unknown>;
 };
 
 export const screenRegistry: ScreenDefinition[] = [
@@ -31,6 +38,16 @@ export const screenRegistry: ScreenDefinition[] = [
     description: "모드 선택, 종목 입력, 감정 선택을 처리하는 화면",
     status: "wip",
     component: InputScreen,
+    previewStates: [
+      { id: "entry", label: "0. 진입" },
+      { id: "stock", label: "1. 종목" },
+      { id: "emotion", label: "2. 감정" },
+      { id: "detail", label: "3. 상황" },
+      { id: "bridge", label: "4. 브릿지" },
+    ],
+    getComponentProps: (previewStateId) => ({
+      initialPreviewStateId: previewStateId,
+    }),
   },
   {
     id: "chat",

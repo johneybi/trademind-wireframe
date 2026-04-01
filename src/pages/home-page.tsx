@@ -1,4 +1,4 @@
-﻿import { useState } from "react";
+import { useEffect, useState } from "react";
 import { CheckCircle2, Eye, FolderKanban, LayoutTemplate, PieChart, Plus } from "lucide-react";
 import { AnimatePresence, motion } from "motion/react";
 import { Button } from "@/components/ui/button";
@@ -20,6 +20,13 @@ const statusClassName: Record<ScreenStatus, string> = {
 export function HomePage() {
   const [selectedId, setSelectedId] = useState(screenRegistry[0]?.id ?? "");
   const activeScreen = screenRegistry.find((screen) => screen.id === selectedId) ?? screenRegistry[0];
+  const [selectedPreviewStateId, setSelectedPreviewStateId] = useState<string | null>(
+    screenRegistry[0]?.previewStates?.[0]?.id ?? null,
+  );
+
+  useEffect(() => {
+    setSelectedPreviewStateId(activeScreen?.previewStates?.[0]?.id ?? null);
+  }, [activeScreen]);
 
   if (!activeScreen) {
     return (
@@ -35,6 +42,7 @@ export function HomePage() {
   }
 
   const ActiveScreen = activeScreen.component;
+  const activeScreenProps = activeScreen.getComponentProps?.(selectedPreviewStateId ?? undefined) ?? {};
 
   return (
     <main className="min-h-screen bg-[linear-gradient(180deg,_#f8fafc_0%,_#eef2ff_100%)] text-slate-950">
@@ -137,7 +145,7 @@ export function HomePage() {
 
             <div className="space-y-3 rounded-3xl border border-slate-200 bg-slate-50 p-4">
               <div className="flex items-center gap-3">
-                  <div className="rounded-2xl bg-white p-3 shadow-xs">
+                <div className="rounded-2xl bg-white p-3 shadow-xs">
                   <Plus className="h-5 w-5 text-slate-700" />
                 </div>
                 <div>
@@ -154,7 +162,7 @@ export function HomePage() {
 
             <div className="space-y-3 rounded-3xl border border-blue-200 bg-blue-50 p-4 text-blue-900">
               <div className="flex items-center gap-3">
-                  <div className="rounded-2xl bg-white p-3 shadow-xs">
+                <div className="rounded-2xl bg-white p-3 shadow-xs">
                   <PieChart className="h-5 w-5 text-blue-700" />
                 </div>
                 <div>
@@ -202,16 +210,48 @@ export function HomePage() {
             </div>
 
             <div className="mt-4 overflow-hidden rounded-[24px] border border-slate-200 bg-slate-100">
+              {activeScreen.previewStates?.length ? (
+                <div className="border-b border-slate-200 bg-white px-4 py-3">
+                  <div className="flex items-center justify-between gap-3">
+                    <div>
+                      <p className="text-sm font-medium text-slate-900">내부 화면</p>
+                      <p className="mt-1 text-xs text-slate-500">플로우 안의 개별 상태를 바로 미리봅니다.</p>
+                    </div>
+                    <div className="rounded-full border border-slate-200 bg-slate-50 px-2.5 py-1 text-xs text-slate-500">
+                      {activeScreen.previewStates.length}개
+                    </div>
+                  </div>
+
+                  <div className="mt-3 flex flex-wrap gap-2">
+                    {activeScreen.previewStates.map((previewState) => (
+                      <button
+                        key={previewState.id}
+                        type="button"
+                        onClick={() => setSelectedPreviewStateId(previewState.id)}
+                        className={cn(
+                          "inline-flex items-center whitespace-nowrap rounded-full border px-3 py-1.5 text-sm transition-colors",
+                          selectedPreviewStateId === previewState.id
+                            ? "border-slate-900 bg-slate-900 text-white"
+                            : "border-slate-200 bg-slate-50 text-slate-600 hover:bg-slate-100",
+                        )}
+                      >
+                        {previewState.label}
+                      </button>
+                    ))}
+                  </div>
+                </div>
+              ) : null}
+
               <AnimatePresence mode="wait">
                 <motion.div
-                  key={activeScreen.id}
+                  key={`${activeScreen.id}:${selectedPreviewStateId ?? "default"}`}
                   initial={{ opacity: 0, y: 10 }}
                   animate={{ opacity: 1, y: 0 }}
                   exit={{ opacity: 0, y: -10 }}
                   transition={{ duration: 0.22, ease: "easeOut" }}
                   className="h-[844px] overflow-hidden"
                 >
-                  <ActiveScreen />
+                  <ActiveScreen {...activeScreenProps} />
                 </motion.div>
               </AnimatePresence>
             </div>
