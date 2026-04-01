@@ -28,7 +28,7 @@ export function InputStockStep({
       className="flex min-h-0 flex-1 flex-col"
     >
       <div className="shrink-0 px-5 pt-7">
-        <p className="text-xs font-semibold uppercase tracking-[0.14em] text-stone-400">Step 1</p>
+        <p className="text-xs font-semibold text-stone-400">Step 1</p>
         <h1 className="mt-3 text-[28px] font-semibold tracking-tight text-stone-950">어떤 종목이 걸리나요?</h1>
         <p className="mt-2 font-serif text-sm leading-6 text-stone-500">종목명을 입력하거나 선택해 주세요.</p>
       </div>

@@ -23,7 +23,7 @@ export function InputFlowStepLayout({
       className="flex min-h-0 flex-1 flex-col"
     >
       <div className="shrink-0 px-5 pt-7">
-        <p className="text-xs font-semibold uppercase tracking-[0.14em] text-stone-400">Step {step}</p>
+        <p className="text-xs font-semibold text-stone-400">Step {step}</p>
         <h1 className="mt-3 text-[28px] font-semibold tracking-tight text-stone-950">{title}</h1>
         {description ? (
           <p className="mt-2 max-w-[31ch] font-serif text-sm leading-6 text-stone-500">{description}</p>

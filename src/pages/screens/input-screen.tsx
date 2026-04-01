@@ -179,7 +179,7 @@ export function InputScreen({ initialPreviewStateId }: { initialPreviewStateId?:
                 />
               ) : null}
 
-              {step === 4 ? <InputBridgeStep mode={mode} /> : null}
+              {step === 4 ? <InputBridgeStep mode={mode} stock={selectedStock} emotion={emotion} /> : null}
             </AnimatePresence>
           </div>
 
