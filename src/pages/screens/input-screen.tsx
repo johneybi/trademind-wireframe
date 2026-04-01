@@ -5,7 +5,6 @@ import {
   BrainCircuit,
   Check,
   Search,
-  ShieldCheck,
   Sparkles,
   Users,
 } from "lucide-react";
@@ -384,7 +383,7 @@ export function InputScreen() {
                 <FlowStepLayout
                   step={2}
                   title="지금 어떤 감정에 가까운가요?"
-                  description="가장 가까운 감정 하나를 골라 주세요."
+                  description="틀린 감정은 없어요. 지금 가장 가까운 것 하나를 골라 주세요."
                 >
                   <div className="space-y-2">
                     {emotionOptions.map((option) => {
@@ -419,19 +418,6 @@ export function InputScreen() {
                     })}
                   </div>
 
-                  <div className="mt-4 rounded-2xl border border-stone-200 bg-stone-50 px-4 py-4">
-                    <div className="flex items-start gap-3">
-                      <div className="rounded-xl bg-white p-2 text-stone-700 shadow-xs">
-                        <ShieldCheck className="h-4 w-4" />
-                      </div>
-                      <div>
-                        <p className="text-sm font-semibold text-stone-900">감정을 비난하지 않아요</p>
-                        <p className="mt-1 font-serif text-sm leading-6 text-stone-600">
-                          AI는 먼저 공감하고, 그 다음에 지금 판단을 흔드는 지점을 질문으로 확인합니다.
-                        </p>
-                      </div>
-                    </div>
-                  </div>
                 </FlowStepLayout>
               ) : null}
 
