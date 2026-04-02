@@ -59,7 +59,7 @@ export const chatScenarios: Record<ChatPreviewStateId, ChatScenario> = {
     userText: "아까 에코프로 급등할 때 참지 못하고 사버렸는데, 벌써 4% 빠지고 있어요.",
     userReply: "급등하는 걸 놓치면 안 될 것 같아서 근거보다 조급함이 먼저였어요.",
     promptResponse: postResponse,
-    completionMessage: "좋아요. 지금 복기한 내용은 결과 화면에서 한 번 더 정리해볼게요.",
-    completionCtaLabel: "복기 결과 보기",
+    completionMessage: "좋아요. 지금 나눈 내용은 결과 화면에서 한 번 더 정리해볼게요.",
+    completionCtaLabel: "결과 보기",
   },
 };

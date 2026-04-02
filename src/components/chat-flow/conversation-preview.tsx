@@ -50,8 +50,8 @@ export function ChatConversationPreview({ scenario }: { scenario: ChatScenario }
       ...activeScenario,
       stage: "complete",
       userReply: replyText?.trim() || "근거보다 조급함이 먼저였던 것 같아요.",
-      completionMessage: "좋아요. 지금 복기한 내용은 결과 화면에서 한 번 더 정리해볼게요.",
-      completionCtaLabel: "복기 결과 보기",
+      completionMessage: "좋아요. 지금 나눈 내용은 결과 화면에서 한 번 더 정리해볼게요.",
+      completionCtaLabel: "결과 보기",
     });
   };
 

@@ -1,31 +1,37 @@
-﻿import { PrototypeScreenTemplate } from "@/components/prototype-screen-template";
+import { BottomTabBar } from "@/components/bottom-tab-bar";
+import { EmotionBoardView } from "@/components/insights-flow/emotion-board-view";
+import { PrototypeDeviceFrame } from "@/components/prototype-device-frame";
 
 export function MainScreen() {
   return (
-    <PrototypeScreenTemplate
-      code="화면 1"
-      title="메인"
-      summary="서비스 진입 화면. 시장 감정 요약, 주요 CTA, 익명 감정 공유 미리보기를 포함합니다."
-      primaryAction="살까 / 팔까"
-      sections={[
-        {
-          title: "오늘의 시장 감정",
-          description: "오늘의 시장 감정 요약과 주요 인지 왜곡 분포를 상단에 배치합니다.",
-        },
-        {
-          title: "핵심 진입 CTA",
-          description: "살까, 팔까 진입 버튼을 가장 강하게 노출합니다.",
-        },
-        {
-          title: "감정 공유 미리보기",
-          description: "익명 사연 1~2개와 현재 분위기를 짧게 보여줍니다.",
-        },
-      ]}
-      notes={[
-        "해커톤 우선순위 1",
-        "서비스 첫인상과 핵심 진입 동선 정리",
-        "하단 진입: 멘탈 캘린더 / 감정 공유 보드",
-      ]}
-    />
+    <PrototypeDeviceFrame>
+      <div className="flex h-full flex-col bg-white text-stone-950">
+        <div className="min-h-0 flex-1 overflow-y-auto bg-stone-100">
+          <header className="space-y-4 bg-white px-5 pb-5 pt-6">
+            <div className="space-y-2">
+              <div className="inline-flex items-center rounded-full border border-stone-200 bg-stone-100 px-3 py-1 text-xs font-medium text-stone-600">
+                오늘의 시장
+              </div>
+              <h1 className="text-[28px] font-semibold tracking-tight text-stone-950">지금 흔들리고 있나요?</h1>
+              <p className="font-serif text-sm leading-6 text-stone-500">
+                오늘 많은 투자자들이 감정으로 흔들렸어요.
+              </p>
+            </div>
+            <button
+              type="button"
+              className="w-full rounded-2xl bg-stone-900 px-5 py-4 text-center text-base font-semibold text-white"
+            >
+              살까 / 팔까 — 지금 살펴봐요
+            </button>
+          </header>
+
+          <div className="px-4 pb-4 pt-3">
+            <EmotionBoardView />
+          </div>
+        </div>
+
+        <BottomTabBar activeTab="home" />
+      </div>
+    </PrototypeDeviceFrame>
   );
 }

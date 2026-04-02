@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { CheckCircle2, Eye, FolderKanban, LayoutTemplate, PieChart, Plus } from "lucide-react";
+import { CheckCircle2, Eye, FolderKanban, Monitor, PieChart, Plus, Smartphone } from "lucide-react";
 import { AnimatePresence, motion } from "motion/react";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
@@ -19,6 +19,7 @@ const statusClassName: Record<ScreenStatus, string> = {
 
 export function HomePage() {
   const [selectedId, setSelectedId] = useState(screenRegistry[0]?.id ?? "");
+  const [previewViewport, setPreviewViewport] = useState<"mobile" | "full">("mobile");
   const activeScreen = screenRegistry.find((screen) => screen.id === selectedId) ?? screenRegistry[0];
   const [selectedPreviewStateId, setSelectedPreviewStateId] = useState<string | null>(
     screenRegistry[0]?.previewStates?.[0]?.id ?? null,
@@ -195,9 +196,29 @@ export function HomePage() {
               </div>
 
               <div className="flex flex-wrap gap-3">
-                <div className="inline-flex shrink-0 items-center gap-2 whitespace-nowrap rounded-full border border-slate-200 bg-slate-50 px-3 py-1.5 text-sm text-slate-600">
-                  <LayoutTemplate className="h-4 w-4" />
-                  전체 화면
+                <div className="inline-flex rounded-full border border-slate-200 bg-slate-50 p-1">
+                  <button
+                    type="button"
+                    onClick={() => setPreviewViewport("mobile")}
+                    className={cn(
+                      "inline-flex items-center gap-2 whitespace-nowrap rounded-full px-3 py-1.5 text-sm transition-colors",
+                      previewViewport === "mobile" ? "bg-slate-900 text-white" : "text-slate-600",
+                    )}
+                  >
+                    <Smartphone className="h-4 w-4" />
+                    모바일
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => setPreviewViewport("full")}
+                    className={cn(
+                      "inline-flex items-center gap-2 whitespace-nowrap rounded-full px-3 py-1.5 text-sm transition-colors",
+                      previewViewport === "full" ? "bg-slate-900 text-white" : "text-slate-600",
+                    )}
+                  >
+                    <Monitor className="h-4 w-4" />
+                    전체
+                  </button>
                 </div>
                 <div
                   className={cn(
@@ -255,9 +276,23 @@ export function HomePage() {
                   animate={{ opacity: 1, y: 0 }}
                   exit={{ opacity: 0, y: -10 }}
                   transition={{ duration: 0.22, ease: "easeOut" }}
-                  className="h-[844px] overflow-hidden"
+                  className={cn(
+                    "overflow-hidden",
+                    previewViewport === "mobile"
+                      ? "flex h-[844px] items-start justify-center bg-slate-200/70 p-4"
+                      : "h-[844px]",
+                  )}
                 >
-                  <ActiveScreen {...activeScreenProps} />
+                  <div
+                    className={cn(
+                      "overflow-hidden",
+                      previewViewport === "mobile"
+                        ? "h-full w-full max-w-[390px] rounded-[32px] border border-slate-300 bg-white shadow-[0_24px_60px_-36px_rgba(15,23,42,0.45)]"
+                        : "h-full w-full",
+                    )}
+                  >
+                    <ActiveScreen {...activeScreenProps} />
+                  </div>
                 </motion.div>
               </AnimatePresence>
             </div>

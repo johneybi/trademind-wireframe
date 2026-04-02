@@ -6,7 +6,7 @@ export type TabMenu = "home" | "chat" | "insights" | "settings";
 const menus = [
   { id: "home", label: "홈", Icon: Home },
   { id: "chat", label: "대화하기", Icon: ChatBubble },
-  { id: "insights", label: "인사이트", Icon: Activity },
+  { id: "insights", label: "내 기록", Icon: Activity },
   { id: "settings", label: "설정", Icon: Settings },
 ] as const;
 

@@ -6,12 +6,12 @@ export const modeOptions: { value: ModeOption; label: string; hint: string }[] =
   {
     value: "pre",
     label: "사고 싶거나 팔고 싶어요",
-    hint: "매매 직전 판단 점검",
+    hint: "매매 전 감정 살펴보기",
   },
   {
     value: "post",
     label: "이미 한 매매가 마음에 걸려요",
-    hint: "사후 복기 기록",
+    hint: "매매 후 감정 기록",
   },
 ];
 

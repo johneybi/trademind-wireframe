@@ -1,9 +1,8 @@
 ﻿import type { ComponentType } from "react";
 import { ChatScreen, type ChatPreviewStateId } from "@/pages/screens/chat-screen";
-import { EmotionBoardScreen } from "@/pages/screens/emotion-board-screen";
+import { InsightsScreen } from "@/pages/screens/insights-screen";
 import { InputScreen } from "@/pages/screens/input-screen";
 import { MainScreen } from "@/pages/screens/main-screen";
-import { MentalCalendarScreen } from "@/pages/screens/mental-calendar-screen";
 import { ResultScreen, type ResultPreviewStateId } from "@/pages/screens/result-screen";
 
 export type ScreenStatus = "todo" | "wip" | "ready";
@@ -27,8 +26,8 @@ export const screenRegistry: ScreenDefinition[] = [
   {
     id: "main",
     title: "메인",
-    description: "시장 감정 요약과 핵심 진입 버튼을 배치하는 시작 화면",
-    status: "todo",
+    description: "오늘의 시장 감정과 익명 피드, 핵심 진입 CTA를 보여주는 시작 화면",
+    status: "wip",
     component: MainScreen,
   },
   {
@@ -58,27 +57,27 @@ export const screenRegistry: ScreenDefinition[] = [
       {
         id: "pre-awaiting",
         label: "1. 사전 - 응답 대기",
-        description: "첫 질문 전 단계입니다. 지금 판단을 멈추고 AI가 개입을 시작하는 순간을 봅니다.",
+        description: "첫 질문 전 단계입니다. AI가 첫 질문을 건네기 직전의 순간을 봅니다.",
       },
       {
         id: "pre-question",
         label: "2. 사전 - 질문",
-        description: "사전 개입의 첫 질문 단계입니다. 지금 판단의 근거를 다시 묻습니다.",
+        description: "매매 전 점검의 첫 질문 단계입니다. 지금 판단의 근거를 다시 살펴봅니다.",
       },
       {
         id: "pre-meta",
         label: "3. 사전 - 핵심 선택",
-        description: "사전 개입의 마지막 질문 단계입니다. 계속할지 멈출지 직전의 핵심 선택을 봅니다.",
+        description: "매매 전 점검의 마지막 질문 단계입니다. 계속할지 멈출지 직전의 핵심 선택을 봅니다.",
       },
       {
         id: "post-question",
         label: "4. 사후 - 질문",
-        description: "사후 복기의 질문 단계입니다. 이미 한 매매를 감정과 근거로 나눠 돌아봅니다.",
+        description: "매매 돌아보기의 질문 단계입니다. 이미 한 매매를 감정과 근거로 나눠 돌아봅니다.",
       },
       {
         id: "post-complete",
-        label: "5. 사후 - 복기 완료",
-        description: "사후 복기의 마무리 단계입니다. 복기 내용을 정리하고 결과 화면으로 이어집니다.",
+        label: "5. 사후 - 기록 완료",
+        description: "매매 돌아보기의 마무리 단계입니다. 기록을 정리하고 결과 화면으로 이어집니다.",
       },
     ],
     getComponentProps: (previewStateId) => ({
@@ -88,7 +87,7 @@ export const screenRegistry: ScreenDefinition[] = [
   {
     id: "result",
     title: "결과",
-    description: "사전 개입과 사후 복기를 같은 셸 안에서 보여주는 결과 화면",
+    description: "매매 전 점검과 매매 돌아보기를 같은 셸 안에서 보여주는 결과 화면",
     status: "wip",
     component: ResultScreen,
     previewStates: [
@@ -100,7 +99,7 @@ export const screenRegistry: ScreenDefinition[] = [
       {
         id: "post",
         label: "2. 사후 - 기록 완료",
-        description: "복기를 저장하고 다음 개입의 근거로 남기는 결과 화면입니다.",
+        description: "기록을 저장하고 다음 매매의 기준으로 남기는 결과 화면입니다.",
       },
     ],
     getComponentProps: (previewStateId) => ({
@@ -108,17 +107,10 @@ export const screenRegistry: ScreenDefinition[] = [
     }),
   },
   {
-    id: "mental-calendar",
-    title: "멘탈 캘린더",
-    description: "개인 기록과 패턴을 보는 화면",
-    status: "todo",
-    component: MentalCalendarScreen,
-  },
-  {
-    id: "emotion-board",
-    title: "감정 공유 보드",
-    description: "오늘의 분포와 익명 사연을 보여주는 TOGETHER 화면",
-    status: "todo",
-    component: EmotionBoardScreen,
+    id: "insights",
+    title: "내 기록",
+    description: "이번 달 감정 흐름과 반복되는 인지 왜곡 패턴을 보는 개인 기록 화면",
+    status: "wip",
+    component: InsightsScreen,
   },
 ];

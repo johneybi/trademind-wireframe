@@ -1,6 +1,7 @@
 export type ResultMode = "pre" | "post";
 
 export type ResultPreviewStateId = "pre" | "post";
+export type ResultDecision = "pause" | "proceed";
 
 export type ResultStat = {
   primaryLabel: string;
@@ -8,6 +9,12 @@ export type ResultStat = {
   secondaryLabel: string;
   secondaryValue: number;
   helperText: string;
+};
+
+export type ResultFeedbackState = {
+  title: string;
+  description: string;
+  actionLabel: string;
 };
 
 export type ResultScenario = {
@@ -27,4 +34,6 @@ export type ResultScenario = {
   footerDescription: string;
   primaryActionLabel: string;
   secondaryActionLabel?: string;
+  decisionResponses?: Record<ResultDecision, ResultFeedbackState>;
+  postActionResponse?: ResultFeedbackState;
 };
