@@ -12,4 +12,3 @@ export type EmotionStory = {
   content: string;
 };
 
-export type InsightsTabId = "calendar" | "board";

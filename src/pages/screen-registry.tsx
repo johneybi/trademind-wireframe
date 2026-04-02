@@ -1,6 +1,6 @@
 import type { ComponentType } from "react";
 import { ChatScreen, type ChatPreviewStateId } from "@/pages/screens/chat-screen";
-import { InsightsScreen, type InsightsTabId } from "@/pages/screens/insights-screen";
+import { InsightsScreen } from "@/pages/screens/insights-screen";
 import { InputScreen } from "@/pages/screens/input-screen";
 import { MainScreen, type MainPreviewStateId } from "@/pages/screens/main-screen";
 import { ResultScreen, type ResultPreviewStateId } from "@/pages/screens/result-screen";
@@ -120,20 +120,6 @@ export const screenRegistry: ScreenDefinition[] = [
     description: "이번 달 감정 흐름과 반복되는 인지 왜곡 패턴을 보는 개인 기록 화면",
     status: "wip",
     component: InsightsScreen,
-    previewStates: [
-      {
-        id: "calendar",
-        label: "1. 멘탈 캘린더",
-        description: "개인 기록과 반복되는 인지 왜곡 패턴을 확인하는 화면입니다.",
-      },
-      {
-        id: "board",
-        label: "2. 감정 공유 보드",
-        description: "오늘의 감정 분포와 익명 사연을 함께 보는 화면입니다.",
-      },
-    ],
-    getComponentProps: (previewStateId) => ({
-      initialPreviewStateId: (previewStateId as InsightsTabId | undefined) ?? "calendar",
-    }),
+    previewStates: [],
   },
 ];
