@@ -1,13 +1,12 @@
 import { cn } from "@/lib/utils";
-import { Home, ChatBubble, Activity, Settings } from "iconoir-react";
+import { Home, ChatBubble, Activity } from "iconoir-react";
 
-export type TabMenu = "home" | "chat" | "insights" | "settings";
+export type TabMenu = "home" | "chat" | "insights";
 
 const menus = [
   { id: "home", label: "홈", Icon: Home },
   { id: "chat", label: "대화하기", Icon: ChatBubble },
   { id: "insights", label: "내 기록", Icon: Activity },
-  { id: "settings", label: "설정", Icon: Settings },
 ] as const;
 
 interface BottomTabBarProps {

@@ -11,3 +11,5 @@ export type EmotionStory = {
   mode: "사전" | "사후";
   content: string;
 };
+
+export type InsightsTabId = "calendar" | "board";
