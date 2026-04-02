@@ -1,5 +1,5 @@
 ﻿import type { ComponentType } from "react";
-import { ChatScreen } from "@/pages/screens/chat-screen";
+import { ChatScreen, type ChatPreviewStateId } from "@/pages/screens/chat-screen";
 import { EmotionBoardScreen } from "@/pages/screens/emotion-board-screen";
 import { InputScreen } from "@/pages/screens/input-screen";
 import { MainScreen } from "@/pages/screens/main-screen";
@@ -53,8 +53,17 @@ export const screenRegistry: ScreenDefinition[] = [
     id: "chat",
     title: "AI 채팅",
     description: "CBT 기반 질문 흐름을 진행하는 대화 화면",
-    status: "todo",
+    status: "wip",
     component: ChatScreen,
+    previewStates: [
+      { id: "typing", label: "1. AI 응답 대기" },
+      { id: "exploratory", label: "2. 탐색형 질문" },
+      { id: "required", label: "3. 필수형 선택" },
+      { id: "decision", label: "4. 최종 결정" },
+    ],
+    getComponentProps: (previewStateId) => ({
+      initialPreviewStateId: previewStateId as ChatPreviewStateId,
+    }),
   },
   {
     id: "pre-decision-result",
