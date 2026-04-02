@@ -4,6 +4,7 @@ import { InsightsScreen } from "@/pages/screens/insights-screen";
 import { InputScreen } from "@/pages/screens/input-screen";
 import { MainScreen, type MainPreviewStateId } from "@/pages/screens/main-screen";
 import { ResultScreen, type ResultPreviewStateId } from "@/pages/screens/result-screen";
+import { AssetsPreviewScreen } from "@/pages/screens/assets-preview-screen";
 
 export type ScreenStatus = "todo" | "wip" | "ready";
 export type ScreenPreviewState = {
@@ -120,6 +121,14 @@ export const screenRegistry: ScreenDefinition[] = [
     description: "이번 달 감정 흐름과 반복되는 인지 왜곡 패턴을 보는 개인 기록 화면",
     status: "wip",
     component: InsightsScreen,
+    previewStates: [],
+  },
+  {
+    id: "assets-preview",
+    title: "그래픽 애셋 / 컴포넌트",
+    description: "서비스에 사용되는 각종 커스텀 그래픽, 모션 요소(AI 오라 등) 및 에셋 모음",
+    status: "ready",
+    component: AssetsPreviewScreen,
     previewStates: [],
   },
 ];
