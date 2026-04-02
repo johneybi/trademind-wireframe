@@ -42,6 +42,9 @@ export function ResultActions({
 
   return (
     <footer className="shrink-0 space-y-2 border-t border-stone-200 bg-white px-5 pb-5 pt-4">
+      {scenario.stateNote ? (
+        <p className="px-1 text-sm leading-6 text-stone-500">{scenario.stateNote}</p>
+      ) : null}
       {isPreMode ? (
         <>
           <Button

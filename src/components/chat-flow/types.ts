@@ -8,6 +8,7 @@ export type ChatPreviewStateId =
   | "post-complete";
 
 export type PromptResponse = {
+  question_type: "exploratory";
   distortion_type:
     | "catastrophizing"
     | "all_or_nothing"
@@ -20,9 +21,9 @@ export type PromptResponse = {
   distortion_tag: string;
   empathy: string;
   question: string;
+  meta_question_type: "meta_cognition" | null;
   meta_question: string | null;
   meta_options: string[] | null;
-  required: boolean;
 };
 
 export type ChatMessage =

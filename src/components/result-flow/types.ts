@@ -30,6 +30,7 @@ export type ResultScenario = {
   stat: ResultStat;
   reasonsTitle: string;
   reasons: string[];
+  stateNote?: string;
   footerTitle: string;
   footerDescription: string;
   primaryActionLabel: string;

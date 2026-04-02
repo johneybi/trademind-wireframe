@@ -1,25 +1,27 @@
 import type { ChatPreviewStateId, ChatScenario, PromptResponse } from "./types";
 
 const preResponse: PromptResponse = {
+  question_type: "exploratory",
   distortion_type: "catastrophizing",
   distortion_tag: "최악을 상상하고 있어요",
   empathy: "3일 연속 하락이면 정말 불안하셨겠어요.",
   question:
     "처음 이 종목을 매수했을 때의 근거, 예를 들면 실적이나 배당, 장기 보유 계획 같은 것들이 오늘도 여전히 유효한가요?",
+  meta_question_type: "meta_cognition",
   meta_question:
     "지금 매도하려는 이유가 '매수 근거가 실제로 바뀌어서'인가요, 아니면 '빨간 숫자를 보는 게 너무 불안해서'인가요?",
   meta_options: ["매수 근거가 바뀌었어요", "감정 때문인 것 같아요"],
-  required: true,
 };
 
 const postResponse: PromptResponse = {
+  question_type: "exploratory",
   distortion_type: "all_or_nothing",
   distortion_tag: "지금 아니면 안 된다는 생각",
   empathy: "이미 매수를 하셨군요. 괜찮아요, 지금 이렇게 돌아보는 것 자체가 중요한 첫 걸음이에요.",
   question: "매수 직전, 어떤 근거를 보고 결정하셨나요? 아니면 근거보다 감정이 먼저였나요?",
+  meta_question_type: null,
   meta_question: null,
   meta_options: null,
-  required: false,
 };
 
 export const chatScenarios: Record<ChatPreviewStateId, ChatScenario> = {
