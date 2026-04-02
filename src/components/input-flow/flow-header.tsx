@@ -1,4 +1,5 @@
 import { ArrowLeft } from "lucide-react";
+import { AnimatePresence, motion } from "motion/react";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { FLOW_STEPS } from "./constants";
@@ -8,7 +9,7 @@ function ProgressBar({ step }: { step: InputStep }) {
   const currentIndex = Math.max(0, step - 1);
 
   return (
-    <div className="flex flex-1 items-center gap-1">
+    <motion.div layout transition={{ duration: 0.35, ease: "easeInOut" }} className="flex flex-1 items-center gap-1">
       {Array.from({ length: FLOW_STEPS }).map((_, index) => (
         <div
           key={index}
@@ -22,7 +23,7 @@ function ProgressBar({ step }: { step: InputStep }) {
           )}
         />
       ))}
-    </div>
+    </motion.div>
   );
 }
 
@@ -46,9 +47,21 @@ export function InputFlowHeader({
           <ArrowLeft className="h-4 w-4" />
         </Button>
         <ProgressBar step={step} />
-        <span className="shrink-0 text-xs font-medium text-stone-400">
-          {step}/{FLOW_STEPS}
-        </span>
+        <AnimatePresence>
+          {step < 4 ? (
+            <motion.div
+              key="step-count"
+              initial={{ opacity: 1, width: "auto" }}
+              exit={{ opacity: 0, width: 0 }}
+              transition={{ duration: 0.3, ease: "easeInOut" }}
+              className="overflow-hidden"
+            >
+              <span className="whitespace-nowrap text-xs font-medium text-stone-400">
+                {step}/{FLOW_STEPS}
+              </span>
+            </motion.div>
+          ) : null}
+        </AnimatePresence>
       </div>
     </header>
   );
