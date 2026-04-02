@@ -1,7 +1,6 @@
 import { motion } from "motion/react";
 import { BrainCircuit } from "lucide-react";
 import { cn } from "@/lib/utils";
-import { BottomTabBar } from "@/components/bottom-tab-bar";
 import { modeOptions } from "./constants";
 import type { ModeOption } from "./types";
 
@@ -62,9 +61,6 @@ export function InputEntryView({
           ))}
         </div>
 
-        <div className="mt-auto">
-          <BottomTabBar activeTab="chat" />
-        </div>
       </motion.section>
     </>
   );

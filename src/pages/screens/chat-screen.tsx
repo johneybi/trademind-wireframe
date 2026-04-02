@@ -1,7 +1,7 @@
 import { ArrowLeft } from "lucide-react";
 import { motion } from "motion/react";
 import { cn } from "@/lib/utils";
-import { BottomTabBar } from "@/components/bottom-tab-bar";
+import { InputDeviceFrame } from "@/components/input-flow/device-frame";
 
 export type ChatPreviewStateId = "typing" | "exploratory" | "required" | "decision";
 
@@ -243,18 +243,19 @@ export function ChatScreen({
   const content = stateMap[initialPreviewStateId]?.() ?? stateMap.exploratory();
 
   return (
-    <div className="relative flex h-full w-full flex-col overflow-hidden bg-white">
-      <ChatHeader />
-      <motion.div
-        key={initialPreviewStateId}
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ duration: 0.2 }}
-        className="flex min-h-0 flex-1 flex-col"
-      >
-        {content}
-      </motion.div>
-      <BottomTabBar activeTab="chat" />
-    </div>
+    <InputDeviceFrame>
+      <div className="relative flex h-full w-full flex-col overflow-hidden bg-white">
+        <ChatHeader />
+        <motion.div
+          key={initialPreviewStateId}
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.2 }}
+          className="flex min-h-0 flex-1 flex-col"
+        >
+          {content}
+        </motion.div>
+      </div>
+    </InputDeviceFrame>
   );
 }
