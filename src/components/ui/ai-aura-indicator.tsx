@@ -4,16 +4,17 @@ import "./ai-aura-indicator.css";
 interface AiAuraIndicatorProps {
   size?: number; // 스케일 조정용 (기본값: 1)
   className?: string; // 추가 클래스
+  variant?: "dark" | "light"; // 테마 분기
 }
 
 /**
  * TRADEMIND의 "Rational Aura" 컨셉을 반영한 AI 반응/타이핑 인디케이터.
  * 블러와 폴리곤 마스킹을 활용하여 살아 움직이는 듯한 메쉬(Mesh) 효과를 만들어냅니다.
  */
-export function AiAuraIndicator({ size = 1, className = "" }: AiAuraIndicatorProps) {
+export function AiAuraIndicator({ size = 1, variant = "dark", className = "" }: AiAuraIndicatorProps) {
   return (
     <div 
-      className={`ai-aura-loader flex items-center justify-center ${className}`} 
+      className={`ai-aura-loader variant-${variant} flex items-center justify-center ${className}`} 
       style={{ "--size": size } as React.CSSProperties}
     >
       {/* SVG 마스크 영역: 엉겨 붙는 Metaball 물리 효과를 위해 contrast와 blur를 조합 */}

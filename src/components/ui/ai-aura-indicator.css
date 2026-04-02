@@ -19,6 +19,15 @@
   animation: aura-colorize calc(var(--time-animation) * 2) ease-in-out infinite;
 }
 
+/* Light Variant: 밝은 배경에 어울리는 소프트하고 화사한 컬러 톤 */
+.ai-aura-loader.variant-light {
+  --color-one: #7b9df2; /* 파스텔 블루 */
+  --color-two: #ff9e7a; /* 화사한 피치 오렌지 */
+  --color-three: rgba(123, 157, 242, 0.4); /* 흰 배경에서 탁해보이지 않는 투명도 */
+  --color-four: rgba(255, 158, 122, 0.3);
+  --color-five: rgba(123, 157, 242, 0.15);
+}
+
 .ai-aura-loader::before {
   content: "";
   position: absolute;

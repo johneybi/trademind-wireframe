@@ -38,14 +38,14 @@ export function AssetsPreviewScreen() {
             {/* 기본 스케일 (라이트) */}
             <div className="flex flex-col items-center justify-center rounded-3xl bg-white p-12 shadow-sm border border-stone-200">
                <h3 className="mb-8 text-sm font-medium text-stone-500">Light / White 배경 (size=1)</h3>
-               <AiAuraIndicator />
+               <AiAuraIndicator variant="light" />
             </div>
 
             {/* 축소 스케일 (라이트) */}
             <div className="flex flex-col items-center justify-center rounded-3xl bg-white p-12 shadow-sm border border-stone-200">
                <h3 className="mb-8 text-sm font-medium text-stone-500">Light 버블 내부용 (size=0.5)</h3>
                <div className="flex h-16 w-32 items-center justify-center rounded-2xl bg-stone-100 border border-stone-200">
-                 <AiAuraIndicator size={0.5} />
+                 <AiAuraIndicator variant="light" size={0.5} />
                </div>
             </div>
           </div>
