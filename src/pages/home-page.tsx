@@ -23,6 +23,8 @@ export function HomePage() {
   const [selectedPreviewStateId, setSelectedPreviewStateId] = useState<string | null>(
     screenRegistry[0]?.previewStates?.[0]?.id ?? null,
   );
+  const activePreviewState =
+    activeScreen?.previewStates?.find((previewState) => previewState.id === selectedPreviewStateId) ?? null;
 
   useEffect(() => {
     setSelectedPreviewStateId(activeScreen?.previewStates?.[0]?.id ?? null);
@@ -239,6 +241,10 @@ export function HomePage() {
                       </button>
                     ))}
                   </div>
+
+                  {activePreviewState?.description ? (
+                    <p className="mt-3 text-sm leading-6 text-slate-500">{activePreviewState.description}</p>
+                  ) : null}
                 </div>
               ) : null}
 

@@ -56,10 +56,31 @@ export const screenRegistry: ScreenDefinition[] = [
     status: "wip",
     component: ChatScreen,
     previewStates: [
-      { id: "typing", label: "1. AI 응답 대기" },
-      { id: "exploratory", label: "2. 탐색형 질문" },
-      { id: "required", label: "3. 필수형 선택" },
-      { id: "decision", label: "4. 최종 결정" },
+      {
+        id: "pre-awaiting",
+        label: "1. 사전 - 응답 대기",
+        description: "첫 질문 전 단계입니다. 지금 판단을 멈추고 AI가 개입을 시작하는 순간을 봅니다.",
+      },
+      {
+        id: "pre-question",
+        label: "2. 사전 - 질문",
+        description: "사전 개입의 첫 질문 단계입니다. 지금 판단의 근거를 다시 묻습니다.",
+      },
+      {
+        id: "pre-meta",
+        label: "3. 사전 - 핵심 선택",
+        description: "사전 개입의 마지막 질문 단계입니다. 계속할지 멈출지 직전의 핵심 선택을 봅니다.",
+      },
+      {
+        id: "post-question",
+        label: "4. 사후 - 질문",
+        description: "사후 복기의 질문 단계입니다. 이미 한 매매를 감정과 근거로 나눠 돌아봅니다.",
+      },
+      {
+        id: "post-complete",
+        label: "5. 사후 - 복기 완료",
+        description: "사후 복기의 마무리 단계입니다. 복기 내용을 정리하고 결과 화면으로 이어집니다.",
+      },
     ],
     getComponentProps: (previewStateId) => ({
       initialPreviewStateId: previewStateId as ChatPreviewStateId,
