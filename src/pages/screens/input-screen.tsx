@@ -1,20 +1,13 @@
 import { useState } from "react";
-import { AnimatePresence } from "motion/react";
 import { STOCKS, emotionOptions } from "@/components/input-flow/constants";
-import { InputBridgeStep } from "@/components/input-flow/bridge-step";
-import { InputDetailStep } from "@/components/input-flow/detail-step";
-import { InputDeviceFrame } from "@/components/input-flow/device-frame";
-import { InputEntryView } from "@/components/input-flow/entry-view";
-import { InputEmotionStep } from "@/components/input-flow/emotion-step";
-import { InputFlowFooter } from "@/components/input-flow/flow-footer";
-import { InputFlowHeader } from "@/components/input-flow/flow-header";
-import { InputStockStep } from "@/components/input-flow/stock-step";
 import type {
   InputPreviewStateId,
   InputStep,
   ModeOption,
   StockSelection,
 } from "@/components/input-flow/types";
+import { InputEntryScreen } from "@/pages/screens/input-entry-screen";
+import { InputFlowScreen } from "@/pages/screens/input-flow-screen";
 
 type InputFlowSnapshot = {
   step: InputStep;
@@ -67,7 +60,7 @@ const inputPreviewSnapshots: Record<InputPreviewStateId, InputFlowSnapshot> = {
     stockQuery: "",
     selectedStock: defaultStock,
     emotion: defaultEmotion,
-    detail: "실적 발표를 앞두고 지금 들어가야 할지 조급한 마음이 커졌어요.",
+    detail: "실적 발표를 앞두고 지금 들어가도 될지 조금 더 마음이 흔들려요.",
   },
 };
 
@@ -88,27 +81,15 @@ export function InputScreen({ initialPreviewStateId }: { initialPreviewStateId?:
   const [emotion, setEmotion] = useState<string | null>(initialSnapshot.emotion);
   const [detail, setDetail] = useState(initialSnapshot.detail);
 
-  const filteredStocks = STOCKS.filter(
-    (stock) =>
-      stock.name.toLowerCase().includes(stockQuery.toLowerCase()) ||
-      stock.code?.toLowerCase().includes(stockQuery.toLowerCase()),
-  );
-
-  const primaryLabel = step === 4 ? "대화 시작하기" : "다음";
-
-  const isPrimaryDisabled =
-    (step === 1 && !selectedStock && !stockQuery.trim()) ||
-    (step === 2 && !emotion) ||
-    (step === 3 && !detail.trim());
-
   const goBack = () => {
-    if (step === 0) return;
     if (step === 1) {
       setStep(0);
       return;
     }
 
-    setStep((current) => (current - 1) as InputStep);
+    if (step > 1) {
+      setStep((current) => (current - 1) as Exclude<InputStep, 0>);
+    }
   };
 
   const goNext = () => {
@@ -134,63 +115,40 @@ export function InputScreen({ initialPreviewStateId }: { initialPreviewStateId?:
     }
   };
 
+  if (step === 0) {
+    return (
+      <InputEntryScreen
+        onSelectMode={(nextMode) => {
+          setMode(nextMode);
+          setStep(1);
+        }}
+      />
+    );
+  }
+
   return (
-    <InputDeviceFrame>
-      {step === 0 ? (
-        <InputEntryView
-          onSelectMode={(nextMode) => {
-            setMode(nextMode);
-            setStep(1);
-          }}
-        />
-      ) : (
-        <>
-          <InputFlowHeader step={step} onBack={goBack} />
-
-          <div className="flex min-h-0 flex-1 flex-col overflow-hidden">
-            <AnimatePresence mode="wait">
-              {step === 1 ? (
-                <InputStockStep
-                  stockQuery={stockQuery}
-                  selectedStock={selectedStock}
-                  filteredStocks={filteredStocks}
-                  onStockQueryChange={(value) => {
-                    setStockQuery(value);
-                    if (selectedStock) {
-                      setSelectedStock(null);
-                    }
-                  }}
-                  onSelectStock={(stock) => {
-                    setSelectedStock(stock);
-                    setStockQuery("");
-                  }}
-                  onClearStock={() => setSelectedStock(null)}
-                />
-              ) : null}
-
-              {step === 2 ? <InputEmotionStep emotion={emotion} onSelectEmotion={setEmotion} /> : null}
-
-              {step === 3 ? (
-                <InputDetailStep
-                  emotion={emotion}
-                  mode={mode}
-                  detail={detail}
-                  onDetailChange={setDetail}
-                />
-              ) : null}
-
-              {step === 4 ? <InputBridgeStep mode={mode} stock={selectedStock} emotion={emotion} /> : null}
-            </AnimatePresence>
-          </div>
-
-          <InputFlowFooter
-            step={step}
-            primaryLabel={primaryLabel}
-            disabled={isPrimaryDisabled}
-            onPrimaryAction={goNext}
-          />
-        </>
-      )}
-    </InputDeviceFrame>
+    <InputFlowScreen
+      step={step}
+      mode={mode}
+      stockQuery={stockQuery}
+      selectedStock={selectedStock}
+      emotion={emotion}
+      detail={detail}
+      onBack={goBack}
+      onPrimaryAction={goNext}
+      onStockQueryChange={(value) => {
+        setStockQuery(value);
+        if (selectedStock) {
+          setSelectedStock(null);
+        }
+      }}
+      onSelectStock={(stock) => {
+        setSelectedStock(stock);
+        setStockQuery("");
+      }}
+      onClearStock={() => setSelectedStock(null)}
+      onSelectEmotion={setEmotion}
+      onDetailChange={setDetail}
+    />
   );
 }
