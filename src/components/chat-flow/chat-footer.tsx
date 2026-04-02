@@ -1,5 +1,6 @@
 import { SendHorizonal } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { Textarea } from "@/components/ui/textarea";
 import { cn } from "@/lib/utils";
 import type { ChatFooterModel } from "./types";
 
@@ -30,42 +31,44 @@ export function ChatFooter({
             isDisabled ? "border-stone-200 bg-stone-100" : "border-stone-200 bg-stone-50",
           )}
         >
-          <textarea
+          <Textarea
             value={composerValue}
             onChange={(event) => onComposerChange?.(event.target.value)}
             placeholder={footer.placeholder}
             rows={1}
             disabled={isDisabled}
             className={cn(
-              "field-sizing-content max-h-24 min-h-[22px] min-w-0 flex-1 resize-none bg-transparent text-sm leading-5 outline-hidden placeholder:text-stone-400",
+              "field-sizing-content max-h-24 min-h-[22px] min-w-0 flex-1 resize-none border-0 bg-transparent p-0 text-sm leading-5 shadow-none outline-hidden placeholder:text-stone-400 focus-visible:ring-0",
               isDisabled ? "cursor-not-allowed text-stone-400" : "text-stone-800",
             )}
           />
 
-          <button
+          <Button
             type="button"
+            size="icon"
             onClick={onComposerSubmit}
             disabled={isSubmitDisabled}
             className={cn(
-              "flex h-9 w-9 shrink-0 items-center justify-center rounded-xl transition-colors",
-              isSubmitDisabled ? "bg-stone-300 text-white" : "bg-stone-800 text-white",
+              "h-9 w-9 shrink-0 rounded-xl",
+              isSubmitDisabled ? "bg-stone-300 text-white hover:bg-stone-300" : "bg-stone-800 text-white hover:bg-stone-800",
             )}
             aria-label={footer.submitLabel ?? "보내기"}
           >
             <SendHorizonal className="h-4 w-4" />
-          </button>
+          </Button>
         </div>
 
         {footer.disabledHint ? <p className="text-center text-xs text-stone-400">{footer.disabledHint}</p> : null}
 
         {footer.secondaryActionLabel ? (
-          <button
+          <Button
             type="button"
+            variant="link"
             onClick={onSecondaryAction}
-            className="w-full text-center text-sm text-stone-400 transition-colors hover:text-stone-600"
+            className="h-auto w-full p-0 text-center text-sm text-stone-400 no-underline hover:text-stone-600"
           >
             {footer.secondaryActionLabel}
-          </button>
+          </Button>
         ) : null}
       </footer>
     );

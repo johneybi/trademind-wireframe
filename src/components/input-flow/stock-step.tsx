@@ -1,5 +1,6 @@
 import { motion } from "motion/react";
 import { Check, Search } from "lucide-react";
+import { Input } from "@/components/ui/input";
 import { cn } from "@/lib/utils";
 import type { StockSelection } from "./types";
 
@@ -29,8 +30,12 @@ export function InputStockStep({
     >
       <div className="shrink-0 px-5 pt-7">
         <p className="text-xs font-semibold text-stone-400">Step 1</p>
-        <h1 className="mt-3 text-[28px] font-semibold tracking-tight text-stone-950">어떤 종목이 걸리나요?</h1>
-        <p className="mt-2 font-serif text-sm leading-6 text-stone-500">종목명을 입력하거나 선택해 주세요.</p>
+        <h1 className="mt-3 text-[28px] font-semibold tracking-tight text-stone-950">
+          어떤 종목이 마음에 걸리세요?
+        </h1>
+        <p className="mt-2 font-serif text-sm leading-6 text-stone-500">
+          종목명을 입력하거나 목록에서 선택해 주세요.
+        </p>
       </div>
 
       <div className="min-h-0 flex-1" />
@@ -95,8 +100,8 @@ export function InputStockStep({
 
         <div className="relative">
           <Search className="pointer-events-none absolute left-4 top-1/2 h-4 w-4 -translate-y-1/2 text-stone-400" />
-          <input
-            className="h-12 w-full rounded-2xl border border-stone-200 bg-stone-50 pl-11 pr-4 text-sm text-stone-900 outline-none transition focus:border-stone-500 focus:bg-white"
+          <Input
+            className="h-12 w-full rounded-2xl border border-stone-200 bg-stone-50 pl-11 pr-4 text-sm text-stone-900 outline-none transition placeholder:text-stone-400 focus-visible:border-stone-500 focus-visible:bg-white focus-visible:ring-0"
             placeholder="종목명을 입력하거나 선택해 주세요"
             value={stockQuery}
             onChange={(event) => onStockQueryChange(event.target.value)}
