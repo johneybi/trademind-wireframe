@@ -41,10 +41,10 @@ export function buildChatViewModel(scenario: ChatScenario): ChatViewModel {
       ];
       footer = {
         type: "composer",
-        placeholder: "AI가 답변을 정리하고 있어요",
+        placeholder: "잠시만요...",
         submitLabel: "보내기",
         disabled: true,
-        disabledHint: "응답이 오면 다시 입력할 수 있어요.",
+        disabledHint: "AI가 답하면 바로 이어서 적을 수 있어요.",
       };
       break;
 
@@ -52,8 +52,8 @@ export function buildChatViewModel(scenario: ChatScenario): ChatViewModel {
       messages = questionMessages;
       footer = {
         type: "composer",
-        placeholder: "직접 적어주세요",
-        secondaryActionLabel: scenario.mode === "pre" ? "건너갈게요" : "이대로 복기할게요",
+        placeholder: "편하게 적어주세요",
+        secondaryActionLabel: scenario.mode === "pre" ? "건너뛸게요" : "이대로 기록할게요",
         submitLabel: "보내기",
       };
       break;
@@ -76,7 +76,7 @@ export function buildChatViewModel(scenario: ChatScenario): ChatViewModel {
       footer = {
         type: "choices",
         title: "지금 필요한 선택",
-        description: "계속 진행할지, 감정이 앞선 상태인지 마지막으로 나눠봅니다.",
+        description: "솔직하게 골라주세요. 틀린 답은 없어요.",
         choices: (scenario.promptResponse.meta_options ?? []).map((option, index) => ({
           id: `${scenario.id}-meta-option-${index}`,
           label: option,
@@ -102,9 +102,9 @@ export function buildChatViewModel(scenario: ChatScenario): ChatViewModel {
       ];
       footer = {
         type: "cta",
-        title: "복기를 저장할 준비가 됐어요",
+        title: "이제 기록을 저장할 수 있어요",
         label: scenario.completionCtaLabel ?? "결과 보기",
-        description: "복기 내용을 저장하고 다음 화면으로 이어집니다.",
+        description: "저장하고 나면 결과를 바로 확인할 수 있어요.",
       };
       break;
   }

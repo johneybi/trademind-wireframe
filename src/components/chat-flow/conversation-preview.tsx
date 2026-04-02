@@ -94,6 +94,16 @@ export function ChatConversationPreview({ scenario }: { scenario: ChatScenario }
     transitionFromQuestion("");
   };
 
+  const handleChoiceSelect = (_choiceId: string, label: string) => {
+    setActiveScenario({
+      ...activeScenario,
+      stage: "complete",
+      selectedMetaOption: label,
+      completionMessage: "좋아요. 이 내용은 결과 화면에서 이어서 정리할게요.",
+      completionCtaLabel: "결과 보기",
+    });
+  };
+
   const footer =
     viewModel.footer.type === "composer"
       ? {
@@ -116,7 +126,7 @@ export function ChatConversationPreview({ scenario }: { scenario: ChatScenario }
         transition={{ duration: 0.2 }}
         className="flex min-h-0 flex-1 flex-col"
       >
-        <DistortionBanner text={viewModel.distortionLabel} />
+        {viewModel.stage !== "awaiting" && <DistortionBanner text={viewModel.distortionLabel} />}
         <ChatMessageList messages={displayedMessages} />
         <ChatFooter
           footer={footer}
@@ -124,6 +134,7 @@ export function ChatConversationPreview({ scenario }: { scenario: ChatScenario }
           onComposerChange={setComposerValue}
           onComposerSubmit={handleComposerSubmit}
           onSecondaryAction={handleSecondaryAction}
+          onChoiceSelect={handleChoiceSelect}
         />
       </motion.div>
     </div>

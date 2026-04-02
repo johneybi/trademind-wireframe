@@ -9,12 +9,14 @@ export function ChatFooter({
   onComposerChange,
   onComposerSubmit,
   onSecondaryAction,
+  onChoiceSelect,
 }: {
   footer: ChatFooterModel;
   composerValue?: string;
   onComposerChange?: (value: string) => void;
   onComposerSubmit?: () => void;
   onSecondaryAction?: () => void;
+  onChoiceSelect?: (choiceId: string, label: string) => void;
 }) {
   if (footer.type === "composer") {
     const isDisabled = footer.disabled;
@@ -96,6 +98,7 @@ export function ChatFooter({
           key={choice.id}
           type="button"
           variant="outline"
+          onClick={() => onChoiceSelect?.(choice.id, choice.label)}
           className={cn(
             "h-auto w-full rounded-2xl border px-4 py-3.5 text-center text-sm font-semibold",
             choice.highlighted
