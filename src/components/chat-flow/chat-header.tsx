@@ -6,38 +6,38 @@ function getHeaderCopy(mode: ChatMode, stage: ChatStage) {
     if (stage === "awaiting") {
       return {
         badge: "매매 전 점검",
-        title: "마음 상태를 잠깐 살펴볼게요",
-        description: "AI가 첫 질문을 준비하고 있어요.",
+        title: "입력한 내용을 먼저 읽고 있어요",
+        description: "방금 적은 상황과 감정을 바탕으로 첫 질문을 준비하고 있어요.",
       };
     }
 
     if (stage === "question") {
       return {
         badge: "매매 전 점검",
-        title: "매매 전에 한 번 같이 살펴봐요",
-        description: "질문에 답하면서 스스로 정리해보세요.",
+        title: "입력한 내용을 바탕으로 같이 볼게요",
+        description: "방금 적은 상황과 감정을 먼저 읽고 질문을 이어가요.",
       };
     }
 
     return {
       badge: "매매 전 점검",
-      title: "마지막으로 한 번만 더 확인해봐요",
-      description: "감정과 근거를 분리해서 생각해볼게요.",
+      title: "마지막 선택만 한 번 더 정리할게요",
+      description: "방금 나눈 내용을 바탕으로 감정과 근거를 한 번 더 나눠봐요.",
     };
   }
 
   if (stage === "complete") {
     return {
       badge: "매매 돌아보기",
-      title: "거의 다 됐어요",
-      description: "내용을 저장하면 결과를 확인할 수 있어요.",
+      title: "복기 내용을 정리했어요",
+      description: "방금 돌아본 내용을 바탕으로 결과 화면으로 이어져요.",
     };
   }
 
   return {
     badge: "매매 돌아보기",
-    title: "이미 한 결정, 함께 돌아봐요",
-    description: "당시 감정을 기록해두면 다음에 도움이 돼요.",
+    title: "입력한 매매 상황을 함께 돌아봐요",
+    description: "방금 적은 내용을 기준으로 감정과 근거를 나눠서 봐요.",
   };
 }
 
