@@ -4,8 +4,7 @@ import { EmotionBoardScreen } from "@/pages/screens/emotion-board-screen";
 import { InputScreen } from "@/pages/screens/input-screen";
 import { MainScreen } from "@/pages/screens/main-screen";
 import { MentalCalendarScreen } from "@/pages/screens/mental-calendar-screen";
-import { PostReviewResultScreen } from "@/pages/screens/post-review-result-screen";
-import { PreDecisionResultScreen } from "@/pages/screens/pre-decision-result-screen";
+import { ResultScreen, type ResultPreviewStateId } from "@/pages/screens/result-screen";
 
 export type ScreenStatus = "todo" | "wip" | "ready";
 export type ScreenPreviewState = {
@@ -87,18 +86,26 @@ export const screenRegistry: ScreenDefinition[] = [
     }),
   },
   {
-    id: "pre-decision-result",
-    title: "결과 - 사전 모드",
-    description: "개입 결과와 커뮤니티 데이터를 보여주는 화면",
-    status: "todo",
-    component: PreDecisionResultScreen,
-  },
-  {
-    id: "post-review-result",
-    title: "결과 - 사후 복기",
-    description: "복기 결과와 기록 완료 상태를 보여주는 화면",
-    status: "todo",
-    component: PostReviewResultScreen,
+    id: "result",
+    title: "결과",
+    description: "사전 개입과 사후 복기를 같은 셸 안에서 보여주는 결과 화면",
+    status: "wip",
+    component: ResultScreen,
+    previewStates: [
+      {
+        id: "pre",
+        label: "1. 사전 - 선택 직전",
+        description: "지금 판단을 멈출지 계속할지 고르기 직전의 결과 화면입니다.",
+      },
+      {
+        id: "post",
+        label: "2. 사후 - 기록 완료",
+        description: "복기를 저장하고 다음 개입의 근거로 남기는 결과 화면입니다.",
+      },
+    ],
+    getComponentProps: (previewStateId) => ({
+      initialPreviewStateId: previewStateId as ResultPreviewStateId,
+    }),
   },
   {
     id: "mental-calendar",
