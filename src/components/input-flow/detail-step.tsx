@@ -1,4 +1,3 @@
-import { Users } from "lucide-react";
 import { InputFlowStepLayout } from "./flow-step-layout";
 import type { ModeOption } from "./types";
 
@@ -31,19 +30,6 @@ export function InputDetailStep({
           onChange={(event) => onDetailChange(event.target.value)}
         />
 
-        <div className="rounded-2xl border border-stone-200 bg-stone-50 px-4 py-4">
-          <div className="flex items-start gap-3">
-            <div className="rounded-xl bg-white p-2 text-stone-700 shadow-xs">
-              <Users className="h-4 w-4" />
-            </div>
-            <div>
-              <p className="text-sm font-semibold text-stone-900">다음 화면에서 이어집니다</p>
-              <p className="mt-1 font-serif text-sm leading-6 text-stone-600">
-                공감, 질문, 그리고 비슷한 상황의 선택 데이터를 순서대로 보게 됩니다.
-              </p>
-            </div>
-          </div>
-        </div>
       </div>
     </InputFlowStepLayout>
   );

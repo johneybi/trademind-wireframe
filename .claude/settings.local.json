@@ -2,7 +2,8 @@
   "permissions": {
     "allow": [
       "Bash(npm.cmd run:*)",
-      "Bash(npx shadcn@latest add command popover)"
+      "Bash(npx shadcn@latest add command popover)",
+      "mcp__figma__get_design_context"
     ]
   }
 }
