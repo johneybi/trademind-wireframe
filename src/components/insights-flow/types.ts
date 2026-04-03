@@ -1,8 +1,10 @@
 export type InsightRecord = {
   id: string;
   date: string;
-  tag: string;
-  outcome: "관망" | "진행" | "기록";
+  mode: "사전" | "사후";
+  emotion: string;
+  distortion: string;
+  summary: string;
 };
 
 export type EmotionStory = {
@@ -11,4 +13,3 @@ export type EmotionStory = {
   mode: "사전" | "사후";
   content: string;
 };
-

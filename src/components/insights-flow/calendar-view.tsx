@@ -2,41 +2,28 @@ import { calendarCells, calendarLegend, distortionFrequency, recentRecords } fro
 
 function getCellTone(cell: (typeof calendarCells)[number]) {
   switch (cell) {
-    case "pause":
-      return "bg-stone-900";
-    case "proceed":
+    case "single":
       return "bg-stone-400";
-    case "review":
-      return "bg-stone-200";
+    case "multiple":
+      return "bg-stone-900";
     default:
       return "bg-stone-100";
   }
 }
 
-function getOutcomeTone(outcome: string) {
-  switch (outcome) {
-    case "관망":
-      return "bg-stone-900 text-white";
-    case "진행":
-      return "bg-stone-300 text-stone-800";
-    default:
-      return "bg-stone-100 text-stone-700";
-  }
+function getModeTone(mode: string) {
+  return mode === "사전"
+    ? "border-stone-200 bg-white text-stone-600"
+    : "border-stone-900 bg-stone-900 text-white";
 }
 
 export function CalendarView() {
   return (
     <div className="space-y-4">
       <section className="rounded-[28px] border border-stone-200 bg-white p-5">
-        <div className="flex items-end justify-between gap-4">
-          <div>
-            <p className="text-sm font-semibold text-stone-950">이번 달 흐름</p>
-            <p className="mt-1 text-sm leading-6 text-stone-500">날짜별로 관망, 진행, 기록을 색으로 구분해서 봅니다.</p>
-          </div>
-          <div className="grid gap-1 text-right">
-            <p className="text-2xl font-semibold text-stone-950">12회</p>
-            <p className="text-xs text-stone-400">이번 달 기록</p>
-          </div>
+        <div>
+          <p className="text-sm font-semibold text-stone-950">다시 돌아본 날</p>
+          <p className="mt-1 text-sm leading-6 text-stone-500">마음이 걸려 다시 들여다본 날을 모아 봅니다.</p>
         </div>
 
         <div className="mt-5 grid grid-cols-7 gap-2">
@@ -58,8 +45,10 @@ export function CalendarView() {
       <section className="rounded-[28px] border border-stone-200 bg-white p-5">
         <div className="flex items-center justify-between gap-3">
           <div>
-            <p className="text-sm font-semibold text-stone-950">자주 나타나는 패턴</p>
-            <p className="mt-1 text-sm leading-6 text-stone-500">지금 가장 자주 흔들리는 지점을 먼저 봅니다.</p>
+            <p className="text-sm font-semibold text-stone-950">자주 걸리는 생각</p>
+            <p className="mt-1 text-sm leading-6 text-stone-500">
+              비슷한 순간마다 어떤 생각이 반복됐는지 봅니다.
+            </p>
           </div>
         </div>
 
@@ -68,7 +57,9 @@ export function CalendarView() {
             <div key={item.label} className="space-y-2">
               <div className="flex items-center justify-between gap-3 text-sm">
                 <span className={index === 0 ? "font-medium text-stone-950" : "text-stone-500"}>{item.label}</span>
-                <span className={index === 0 ? "font-semibold text-stone-950" : "font-medium text-stone-500"}>{item.value}%</span>
+                <span className={index === 0 ? "font-semibold text-stone-950" : "font-medium text-stone-500"}>
+                  {item.value}%
+                </span>
               </div>
               <div className="h-2 rounded-full bg-stone-100">
                 <div
@@ -83,20 +74,28 @@ export function CalendarView() {
 
       <section className="rounded-[28px] border border-stone-200 bg-white p-5">
         <div>
-          <p className="text-sm font-semibold text-stone-950">최근 기록</p>
-          <p className="mt-1 text-sm leading-6 text-stone-500">최근 선택을 짧게 다시 확인합니다.</p>
+          <p className="text-sm font-semibold text-stone-950">마음이 남았던 순간들</p>
+          <p className="mt-1 text-sm leading-6 text-stone-500">
+            그날 어떤 마음이 올라왔는지 다시 봅니다.
+          </p>
         </div>
 
-        <div className="mt-4 space-y-2">
+        <div className="mt-4 space-y-3">
           {recentRecords.map((record) => (
-            <div key={record.id} className="flex items-center justify-between gap-3 rounded-3xl border border-stone-200 bg-stone-50 px-4 py-3">
-              <div className="min-w-0">
-                <p className="text-sm font-medium text-stone-900">{record.tag}</p>
-                <p className="mt-1 text-xs text-stone-500">{record.date}</p>
+            <div key={record.id} className="rounded-3xl border border-stone-200 bg-stone-50 px-4 py-4">
+              <div className="flex items-start justify-between gap-3">
+                <div className="min-w-0">
+                  <div className="flex flex-wrap items-center gap-2">
+                    <span className={`rounded-full border px-2.5 py-1 text-[11px] font-medium ${getModeTone(record.mode)}`}>
+                      {record.mode}
+                    </span>
+                    <span className="text-xs text-stone-400">{record.date}</span>
+                  </div>
+                  <p className="mt-3 text-sm font-semibold text-stone-950">{record.emotion}</p>
+                  <p className="mt-1 text-xs text-stone-500">{record.distortion}</p>
+                </div>
               </div>
-              <div className={`shrink-0 rounded-full px-3 py-1 text-xs font-medium ${getOutcomeTone(record.outcome)}`}>
-                {record.outcome}
-              </div>
+              <p className="mt-3 font-serif text-sm leading-6 text-stone-600">{record.summary}</p>
             </div>
           ))}
         </div>

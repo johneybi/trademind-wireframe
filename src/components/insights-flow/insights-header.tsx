@@ -8,7 +8,7 @@ export function InsightsHeader() {
       <div>
         <h1 className="text-[28px] font-semibold tracking-tight text-stone-950">멘탈 캘린더</h1>
         <p className="mt-1 font-serif text-sm leading-6 text-stone-500">
-          최근 흐름과 반복되는 패턴을 한 화면에서 봅니다.
+          언제 다시 돌아보게 됐는지 날짜 흐름으로 봅니다.
         </p>
       </div>
     </header>
