@@ -1,4 +1,5 @@
 import { AiAuraIndicator } from "@/components/ui/ai-aura-indicator";
+import { AnxiousCandleChart } from "@/components/ui/anxious-candle-chart";
 
 export function AssetsPreviewScreen() {
   return (
@@ -70,6 +71,28 @@ export function AssetsPreviewScreen() {
                    <AiAuraIndicator variant="light" size={3} />
                  </div>
                </div>
+            </div>
+          </div>
+        </section>
+
+        {/* Section 2: Anxious Candle Chart */}
+        <section className="space-y-6">
+          <div className="border-b border-stone-200 pb-2">
+            <h2 className="text-lg font-semibold text-stone-800">2. Anxious Candle Chart (Volatility)</h2>
+            <p className="mt-1 text-sm text-stone-500">
+              시장의 불안정성과 유저의 심리적 요동을 시각화하는 파동형 캔들 차트 애니메이션
+            </p>
+          </div>
+
+          <div className="grid gap-6 md:grid-cols-2">
+            <div className="flex flex-col items-center justify-center rounded-3xl bg-[#0c0a09] p-12 shadow-sm border border-stone-800">
+               <h3 className="mb-8 text-sm font-medium text-stone-400">Dark Background (Volatility)</h3>
+               <AnxiousCandleChart />
+            </div>
+
+            <div className="flex flex-col items-center justify-center rounded-3xl bg-white p-12 shadow-sm border border-stone-200">
+               <h3 className="mb-8 text-sm font-medium text-stone-500">Light Background (Volatility)</h3>
+               <AnxiousCandleChart variant="dark" />
             </div>
           </div>
         </section>
