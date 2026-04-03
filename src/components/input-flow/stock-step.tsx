@@ -1,6 +1,7 @@
 import { motion } from "motion/react";
-import { Check, Search } from "lucide-react";
-import { Input } from "@/components/ui/input";
+import { Check } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { Command, CommandEmpty, CommandInput, CommandItem, CommandList } from "@/components/ui/command";
 import { cn } from "@/lib/utils";
 import type { StockSelection } from "./types";
 
@@ -55,58 +56,61 @@ export function InputStockStep({
                   ) : null}
                 </div>
               </div>
-              <button
+              <Button
                 type="button"
+                variant="link"
                 onClick={onClearStock}
-                className="text-xs text-stone-400 hover:text-stone-700"
+                className="h-auto p-0 text-xs text-stone-400 no-underline hover:text-stone-700"
               >
                 지우기
-              </button>
+              </Button>
             </div>
           </div>
         ) : null}
 
-        {stockQuery && !selectedStock ? (
-          <div className="max-h-52 overflow-y-auto rounded-2xl border border-stone-200 bg-white shadow-sm">
-            {filteredStocks.length > 0 ? (
-              filteredStocks.map((stock, index) => (
-                <button
-                  key={stock.code ?? stock.name}
-                  type="button"
-                  onClick={() => onSelectStock(stock)}
-                  className={cn(
-                    "flex w-full items-center justify-between px-4 py-3.5 text-left transition-colors active:bg-stone-50",
-                    index > 0 && "border-t border-stone-100",
-                  )}
-                >
-                  <span className="text-sm font-medium text-stone-900">{stock.name}</span>
-                  <div className="flex items-center gap-2">
-                    <span className="text-xs text-stone-400">{stock.code}</span>
-                    <span className="rounded-md bg-stone-100 px-1.5 py-0.5 text-[10px] text-stone-500">
-                      {stock.market}
-                    </span>
-                  </div>
-                </button>
-              ))
-            ) : (
-              <div className="px-4 py-4">
-                <p className="font-serif text-sm leading-6 text-stone-500">
-                  목록에 없는 종목이어도 괜찮아요. 지금 적은 이름 그대로 다음으로 이어갈 수 있어요.
-                </p>
-              </div>
-            )}
+        <Command shouldFilter={false} className={cn("rounded-none bg-transparent text-stone-950")}>
+          <div className="rounded-2xl border border-stone-200 bg-stone-50">
+            <CommandInput
+              value={stockQuery}
+              onValueChange={onStockQueryChange}
+              placeholder="종목명을 입력하거나 선택해 주세요"
+              wrapperClassName="rounded-2xl border-0 px-4"
+              className="h-12 bg-transparent py-0 text-sm text-stone-900 placeholder:text-stone-400"
+            />
           </div>
-        ) : null}
 
-        <div className="relative">
-          <Search className="pointer-events-none absolute left-4 top-1/2 h-4 w-4 -translate-y-1/2 text-stone-400" />
-          <Input
-            className="h-12 w-full rounded-2xl border border-stone-200 bg-stone-50 pl-11 pr-4 text-sm text-stone-900 outline-none transition placeholder:text-stone-400 focus-visible:border-stone-500 focus-visible:bg-white focus-visible:ring-0"
-            placeholder="종목명을 입력하거나 선택해 주세요"
-            value={stockQuery}
-            onChange={(event) => onStockQueryChange(event.target.value)}
-          />
-        </div>
+          {stockQuery && !selectedStock ? (
+            <div className="mt-2 overflow-hidden rounded-2xl border border-stone-200 bg-white shadow-sm">
+              <CommandList className="max-h-52">
+                {filteredStocks.length > 0 ? (
+                  filteredStocks.map((stock, index) => (
+                    <CommandItem
+                      key={stock.code ?? stock.name}
+                      value={`${stock.name} ${stock.code ?? ""} ${stock.market ?? ""}`}
+                      onSelect={() => onSelectStock(stock)}
+                      className={cn(
+                        "flex items-center justify-between gap-3 rounded-none px-4 py-3.5 text-left data-[selected=true]:bg-stone-50 data-[selected=true]:text-stone-900",
+                        index > 0 && "border-t border-stone-100",
+                      )}
+                    >
+                      <span className="text-sm font-medium text-stone-900">{stock.name}</span>
+                      <div className="flex items-center gap-2">
+                        <span className="text-xs text-stone-400">{stock.code}</span>
+                        <span className="rounded-md bg-stone-100 px-1.5 py-0.5 text-[10px] text-stone-500">
+                          {stock.market}
+                        </span>
+                      </div>
+                    </CommandItem>
+                  ))
+                ) : (
+                  <CommandEmpty className="px-4 py-4 text-left font-serif text-sm leading-6 text-stone-500">
+                    목록에 없는 종목이어도 괜찮아요. 지금 적은 이름 그대로 다음으로 이어갈 수 있어요.
+                  </CommandEmpty>
+                )}
+              </CommandList>
+            </div>
+          ) : null}
+        </Command>
       </div>
     </motion.section>
   );

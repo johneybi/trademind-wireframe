@@ -48,6 +48,29 @@ export function AssetsPreviewScreen() {
                  <AiAuraIndicator variant="light" size={0.5} />
                </div>
             </div>
+
+            {/* 피그마 다이렉트 수출용 (투명 배경) */}
+            <div className="md:col-span-2 flex flex-col items-center justify-center rounded-3xl border border-dashed border-stone-300 p-12 relative overflow-hidden bg-[url('https://t3.ftcdn.net/jpg/03/89/30/23/360_F_389302381_x760fGfIOrTofVl5Cg1OepY8vEqV8zIf.jpg')] bg-repeat bg-[size:12px_12px]">
+               <div className="absolute inset-0 bg-white/70" />
+               <div className="z-10 flex flex-col items-center">
+                 <h3 className="mb-8 text-sm font-medium text-stone-600 bg-white/80 px-4 py-1 rounded-full">Figma Export (Checkered)</h3>
+                 <div className="p-16">
+                   <AiAuraIndicator variant="light" size={2} />
+                 </div>
+               </div>
+            </div>
+
+            {/* 피그마 다이렉트 수출용 (클린 화이트 배경) */}
+            <div className="md:col-span-2 flex flex-col items-center justify-center rounded-3xl border border-dashed border-stone-300 p-12 relative overflow-hidden bg-white">
+               <div className="z-10 flex flex-col items-center">
+                 <h3 className="mb-8 text-sm font-medium text-stone-400">Figma Clean Capture (White BG)</h3>
+                 
+                 {/* 그림자가 퍼지는 것을 고려하여 p-40(160px)의 여유 공간을 확보합니다. */}
+                 <div id="figma-export-target" className="p-40 bg-white inline-block">
+                   <AiAuraIndicator variant="light" size={3} />
+                 </div>
+               </div>
+            </div>
           </div>
         </section>
       </div>

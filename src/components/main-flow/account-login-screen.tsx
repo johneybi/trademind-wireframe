@@ -60,9 +60,13 @@ export function AccountLoginScreen({
             </Button>
             <p className="text-center text-sm text-stone-500">
               처음이신가요?{" "}
-              <button type="button" className="font-medium text-stone-900 underline underline-offset-2">
+              <Button
+                type="button"
+                variant="link"
+                className="h-auto p-0 font-medium text-stone-900 underline underline-offset-2"
+              >
                 회원가입
-              </button>
+              </Button>
             </p>
           </div>
         </div>

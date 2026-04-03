@@ -29,13 +29,14 @@ export function InputFlowFooter({
             {primaryLabel}
           </Button>
           {step === 1 ? (
-            <button
+            <Button
               type="button"
+              variant="link"
               onClick={onPrimaryAction}
-              className="mt-3 w-full text-center text-sm text-stone-400 hover:text-stone-600"
+              className="mt-3 h-auto w-full p-0 text-center text-sm text-stone-400 no-underline hover:text-stone-600"
             >
               종목 없이 건너갈게요
-            </button>
+            </Button>
           ) : null}
         </>
       ) : (
