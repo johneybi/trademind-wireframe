@@ -1,0 +1,186 @@
+.ai-aura-loader-v2 {
+  --color-one: #4c6ab5; /* Calm Blue */
+  --color-two: #eb7951; /* Vibrant Orange */
+  --color-three: rgba(76, 106, 181, 0.5);
+  --color-four: rgba(235, 121, 81, 0.5);
+  --color-five: rgba(76, 106, 181, 0.25);
+  --time-animation: 5s; /* 움직임을 좀 더 몰입감 있게 만들기 위해 기본 시간 조정 */
+  --size: 1;
+  
+  position: relative;
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  transform: scale(var(--size));
+  box-shadow:
+    0 0 25px 0 var(--color-three),
+    0 20px 50px 0 var(--color-four);
+  /* hue-rotate 범위를 약간 줄여 TRADEMIND 브랜드 톤이 깨지지 않도록 조절 */
+  animation: aura-colorize-v2 calc(var(--time-animation) * 2) ease-in-out infinite;
+}
+
+/* Light Variant */
+.ai-aura-loader-v2.variant-light {
+  --color-one: #7b9df2; /* 파스텔 블루 */
+  --color-two: #ff9e7a; /* 화사한 피치 오렌지 */
+  --color-three: rgba(123, 157, 242, 0.4);
+  --color-four: rgba(255, 158, 122, 0.3);
+  --color-five: rgba(123, 157, 242, 0.15);
+}
+
+.ai-aura-loader-v2::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  border-top: solid 1px var(--color-one);
+  border-bottom: solid 1px var(--color-two);
+  background: linear-gradient(180deg, var(--color-five), var(--color-four));
+  box-shadow:
+    inset 0 10px 10px 0 var(--color-three),
+    inset 0 -10px 10px 0 var(--color-four);
+}
+
+.ai-aura-loader-v2 .aura-box {
+  width: 100%;
+  height: 100%;
+  /* 세로 움직임을 강조하기 위해 그라데이션 역시 상하로 위치 */
+  background: linear-gradient(180deg, var(--color-one) 20%, var(--color-two) 80%);
+  mask: url(#aura-clipping-v2);
+  -webkit-mask: url(#aura-clipping-v2);
+  
+  /* 박스 자체도 아주 얕게 세로로 숨쉬게 함 */
+  transform-origin: center;
+  animation: aura-box-breathe var(--time-animation) infinite alternate ease-in-out;
+}
+
+.ai-aura-loader-v2 svg {
+  position: absolute;
+  width: 100px;
+  height: 100px;
+  top: 0;
+  left: 0;
+  pointer-events: none;
+}
+
+.ai-aura-loader-v2 svg #aura-clipping-v2 {
+  filter: contrast(18);
+  /* contrast 변화도 약간 주어 파동감을 더함 */
+  animation: aura-roundness-v2 calc(var(--time-animation) / 2) linear infinite;
+}
+
+.ai-aura-loader-v2 svg #aura-clipping-v2 polygon {
+  filter: blur(8px);
+}
+
+/* Polygons Animations (Arc Maintanence & Wide Fluid Swirls) */
+.ai-aura-loader-v2 svg #aura-clipping-v2 polygon:nth-child(1) {
+  transform-origin: 75% 25%;
+  transform: rotate(90deg); /* V1의 원본 백그라운드 트랜스폼 복구 */
+}
+
+/* Base Top Flat Triangle (25,25 -> 75,25) - 상단 아크의 수평 유지, 위아래로 유선형 파동 */
+.ai-aura-loader-v2 svg #aura-clipping-v2 polygon:nth-child(2) {
+  transform-origin: 50% 50%;
+  animation: aura-wave-top var(--time-animation) linear infinite;
+}
+
+/* Sub Main Triangle (points Up) - 내부 매스감을 채우며 좌우/아래로 넓게 전이. 하단 부분을 채움 */
+.ai-aura-loader-v2 svg #aura-clipping-v2 polygon:nth-child(3) {
+  transform-origin: 50% 60%;
+  animation: aura-wave-bottom calc(var(--time-animation) * 1.1) linear infinite;
+  animation-delay: calc(var(--time-animation) / -3);
+}
+
+/* Left Bottom Blobs - 좌측 넓은 반경으로 스윙하여 폭 확보 및 하단 뿌연 드롭 생성 */
+.ai-aura-loader-v2 svg #aura-clipping-v2 polygon:nth-child(4) {
+  transform-origin: 40% 40%;
+  animation: aura-swirl-left calc(var(--time-animation) * 1.3) linear infinite;
+}
+.ai-aura-loader-v2 svg #aura-clipping-v2 polygon:nth-child(5) {
+  transform-origin: 40% 40%;
+  animation: aura-swirl-left-2 calc(var(--time-animation) * 1.5) linear infinite;
+  animation-delay: calc(var(--time-animation) / -2);
+}
+
+/* Right Bottom Blobs - 우측 넓은 반경으로 스윙하여 폭 확보 및 드롭 */
+.ai-aura-loader-v2 svg #aura-clipping-v2 polygon:nth-child(6) {
+  transform-origin: 60% 40%;
+  animation: aura-swirl-right calc(var(--time-animation) * 1.2) linear infinite;
+}
+.ai-aura-loader-v2 svg #aura-clipping-v2 polygon:nth-child(7) {
+  transform-origin: 60% 40%;
+  animation: aura-swirl-right-2 calc(var(--time-animation) * 1.4) linear infinite;
+  animation-delay: calc(var(--time-animation) / -1.5);
+}
+
+/* --- Keyframes (Translate 중심의 극한 스윙으로 V1 회전 반경과 볼륨감 복구) --- */
+
+@keyframes aura-wave-top {
+  /* 상단 아크 유지. Y축과 얕은 각도로만 움직여 유선형 파동. */
+  0% { transform: translate(-3px, -8px) rotate(-4deg) scale(1.05); }
+  33% { transform: translate(5px, 5px) rotate(3deg) scale(0.95); }
+  66% { transform: translate(0px, -5px) rotate(-2deg) scale(1.02); }
+  100% { transform: translate(-3px, -8px) rotate(-4deg) scale(1.05); }
+}
+
+@keyframes aura-wave-bottom {
+  /* 하단 볼륨을 담당하므로 크게 좌우하단으로 움직임. 위집혀 올라오지 않도록 각도 제한. */
+  0% { transform: translate(-10px, 15px) rotate(-15deg) scaleX(1.1); }
+  33% { transform: translate(15px, 5px) rotate(15deg) scaleX(1.15); }
+  66% { transform: translate(5px, 20px) rotate(0deg) scaleX(1.05); }
+  100% { transform: translate(-10px, 15px) rotate(-15deg) scaleX(1.1); }
+}
+
+@keyframes aura-swirl-left {
+  /* 매우 넓은 폭을 위해 좌측 가장자리까지 도달 */
+  0% { transform: translate(-30px, 5px) rotate(-25deg) scale(1.2); }
+  33% { transform: translate(-5px, 25px) rotate(10deg) scale(0.9); }
+  66% { transform: translate(-25px, 30px) rotate(-15deg) scale(1.1); }
+  100% { transform: translate(-30px, 5px) rotate(-25deg) scale(1.2); }
+}
+
+@keyframes aura-swirl-left-2 {
+  0% { transform: translate(-15px, 30px) rotate(-10deg) scale(1.1); }
+  33% { transform: translate(-35px, 15px) rotate(20deg) scale(1); }
+  66% { transform: translate(-5px, -5px) rotate(-15deg) scale(1.2); }
+  100% { transform: translate(-15px, 30px) rotate(-10deg) scale(1.1); }
+}
+
+@keyframes aura-swirl-right {
+  /* 매우 넓은 폭을 위해 우측 가장자리까지 도달 */
+  0% { transform: translate(30px, 10px) rotate(25deg) scale(1.2); }
+  33% { transform: translate(5px, 25px) rotate(-10deg) scale(0.9); }
+  66% { transform: translate(25px, 30px) rotate(15deg) scale(1.1); }
+  100% { transform: translate(30px, 10px) rotate(25deg) scale(1.2); }
+}
+
+@keyframes aura-swirl-right-2 {
+  0% { transform: translate(15px, -5px) rotate(10deg) scale(1.2); }
+  33% { transform: translate(35px, 15px) rotate(-20deg) scale(1); }
+  66% { transform: translate(5px, 35px) rotate(15deg) scale(1.1); }
+  100% { transform: translate(15px, -5px) rotate(10deg) scale(1.2); }
+}
+
+@keyframes aura-roundness-v2 {
+  0% { filter: contrast(18); }
+  20% { filter: contrast(12); }
+  40% { filter: contrast(12); }
+  60% { filter: contrast(18); }
+  100% { filter: contrast(18); }
+}
+
+/* 메인 박스의 미세한 호흡 */
+@keyframes aura-box-breathe {
+  0% { transform: scaleY(0.96) scaleX(1.02); }
+  100% { transform: scaleY(1.04) scaleX(0.98); }
+}
+
+@keyframes aura-colorize-v2 {
+  0% { filter: hue-rotate(0deg); }
+  50% { filter: hue-rotate(-20deg); }
+  100% { filter: hue-rotate(0deg); }
+}

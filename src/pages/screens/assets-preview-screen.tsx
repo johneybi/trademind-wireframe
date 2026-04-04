@@ -1,4 +1,5 @@
 import { AiAuraIndicator } from "@/components/ui/ai-aura-indicator";
+import { AiAuraIndicatorV2 } from "@/components/ui/ai-aura-indicator-v2";
 import { AnxiousCandleChart } from "@/components/ui/anxious-candle-chart";
 
 export function AssetsPreviewScreen() {
@@ -69,6 +70,37 @@ export function AssetsPreviewScreen() {
                  {/* 그림자가 퍼지는 것을 고려하여 p-40(160px)의 여유 공간을 확보합니다. */}
                  <div id="figma-export-target" className="p-40 bg-white inline-block">
                    <AiAuraIndicator variant="light" size={3} />
+                 </div>
+               </div>
+            </div>
+          </div>
+        </section>
+
+        {/* Section 1.5: AI Aura V2 (Vertical Stock Chart Concept) */}
+        <section className="space-y-6">
+          <div className="border-b border-stone-200 pb-2">
+            <h2 className="text-lg font-semibold text-stone-800">1.5 AI Aura V2 (Vertical Chart Metaphor)</h2>
+            <p className="mt-1 text-sm text-stone-500">
+              상하 수직 움직임을 강조하여 캔들차트가 움직이는 듯한 깊고 유기적인 상승/하락 메타포를 담은 개선버전입니다.
+            </p>
+          </div>
+
+          <div className="grid gap-6 md:grid-cols-2">
+            <div className="flex flex-col items-center justify-center rounded-3xl bg-[#0c0a09] p-12 shadow-sm border border-stone-800">
+               <h3 className="mb-8 text-sm font-medium text-stone-400">Dark 배경 (Vertical)</h3>
+               <AiAuraIndicatorV2 />
+            </div>
+
+            <div className="flex flex-col items-center justify-center rounded-3xl bg-white p-12 shadow-sm border border-stone-200">
+               <h3 className="mb-8 text-sm font-medium text-stone-500">Light / White 배경 (Vertical)</h3>
+               <AiAuraIndicatorV2 variant="light" />
+            </div>
+            
+            <div className="md:col-span-2 flex flex-col items-center justify-center rounded-3xl border border-dashed border-stone-300 p-12 relative overflow-hidden bg-white">
+               <div className="z-10 flex flex-col items-center">
+                 <h3 className="mb-8 text-sm font-medium text-stone-400">Figma Clean Capture (White BG) - V2</h3>
+                 <div className="p-40 bg-white inline-block">
+                   <AiAuraIndicatorV2 variant="light" size={3} />
                  </div>
                </div>
             </div>
